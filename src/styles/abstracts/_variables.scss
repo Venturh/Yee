@@ -1,0 +1,48 @@
+$body: #1e2124;
+$bodyContrast: #e3e3e3;
+$primary: #9387f7;
+$primaryContrast: #101112;
+$item: #282b30;
+$itemTint: #42464d;
+$itemShade: #141618;
+$itemContrast: #ffff;
+$success: #a8e6cf;
+$error: #f67280;
+
+$text-caption: 0.675em;
+$text-button: 0.775em;
+$text-body: 1em;
+$text-subtitle: 1.25em;
+$text-title: 1.5em;
+$text-header: 2em;
+
+//Breakpoints
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+@mixin sm {
+  @media (max-width: #{$breakpoint-sm}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (max-width: #{$breakpoint-md}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (max-width: #{$breakpoint-lg}) {
+    @content;
+  }
+}
+
+@mixin xl {
+  @media (max-width: #{$breakpoint-xl}) {
+    @content;
+  }
+}

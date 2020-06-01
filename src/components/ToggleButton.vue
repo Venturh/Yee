@@ -13,11 +13,11 @@
 export default {
   name: 'ToggleButton',
   props: {
-    active: Boolean,
+    active: String,
     size: { type: String, default: '75px' },
   },
   data() {
-    return { a: this.active };
+    return { a: this.active === 'on' ? true : false };
   },
   computed: {
     computedActive: {
@@ -25,7 +25,7 @@ export default {
         return this.active;
       },
       set: function(newValue) {
-        this.a = newValue;
+        this.a = newValue === 'on' ? true : false;
       },
     },
   },
@@ -33,6 +33,11 @@ export default {
     toggle() {
       this.computedActive = !this.computedActive;
       this.$emit('toggled');
+    },
+  },
+  watch: {
+    active(value) {
+      this.computedActive = value;
     },
   },
 };
@@ -60,7 +65,7 @@ export default {
   position: relative;
   width: calc(var(--size) / 2.5);
   height: calc(var(--size) / 2.5);
-  background: $bodyContrast;
+  background: $itemContrast;
   border-radius: 50px;
   margin: 5px;
 }

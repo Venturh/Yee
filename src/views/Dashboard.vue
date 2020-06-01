@@ -1,16 +1,13 @@
 <template>
-  <div>
+  <div class="wrapper">
     <h1>Dashboard</h1>
-    <p v-for="(item, index) in devices" :key="index">
-      Test{{ item.params.power }}
-    </p>
     <div class="bulbs">
       <YeelightCard
         v-for="(item, index) in devices"
         :key="index"
         :bulb="item.bulb"
         name="Plazuhalter"
-        :power="item.params.power"
+        :params="item.params"
       />
     </div>
   </div>
@@ -39,6 +36,9 @@ export default {
 </script>
 
 <style lang="scss">
+.wrapper {
+  margin: 0 5% 0 5%;
+}
 .bulbs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
