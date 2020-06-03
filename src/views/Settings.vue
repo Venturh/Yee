@@ -1,5 +1,9 @@
 <template>
-  <div class="about">
-    <h1>This is an settings page</h1>
-  </div>
+  <div class="wrapper"><h1>Settings</h1></div>
 </template>
+
+<script>
+export default { name: 'Settings' };
+</script>
+
+<style lang="scss" scoped></style>

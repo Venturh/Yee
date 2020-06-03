@@ -16,6 +16,23 @@ export const changeBrightness = (bulb, brightness) => {
   });
 };
 
+export const changeHue = (bulb, { h, s }) => {
+  console.log('tochange', h, s);
+  bulb.sendCommand({
+    id: 1,
+    method: 'set_hsv',
+    params: [h, s, 'smooth', 300],
+  });
+};
+
+export const changeRGB = (bulb, red, green, blue) => {
+  bulb.sendCommand({
+    id: 1,
+    method: 'set_rgb',
+    params: [(red, green, blue), 'smooth', 300],
+  });
+};
+
 //On Listeners
 
 export const onChange = (devices, yeelight, newProps, toChange) => {

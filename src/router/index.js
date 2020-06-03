@@ -9,12 +9,22 @@ const routes = [
     path: '/',
     name: 'Dashboard',
     component: Dashboard,
+    alias: '/dashboard',
+  },
+  {
+    path: '/rooms',
+    name: 'Rooms',
+    component: () => import('../views/Rooms.vue'),
+  },
+  {
+    path: '/scenes',
+    name: 'Scenes',
+    component: () => import('../views/Scenes.vue'),
   },
   {
     path: '/settings',
     name: 'Settings',
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/Settings.vue'),
+    component: () => import('../views/Settings.vue'),
   },
 ];
 

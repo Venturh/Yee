@@ -3,6 +3,7 @@ import { Discovery, Device } from 'yeelight-platform';
 import { onChange } from '../../utils/bulbService';
 const actions = {
   async discovery({ state }) {
+    state.discovering = true;
     const discoveryService = new Discovery();
     discoveryService.once('didDiscoverDevice', device => {
       const yeelight = new Device({ host: device.host, port: device.port });
@@ -57,6 +58,9 @@ const actions = {
       });
     });
     discoveryService.listen();
+    setTimeout(() => {
+      discoveryService.socket.close();
+    }, 5000);
   },
 };
 
