@@ -25,7 +25,13 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
+  width: 100%;
   height: 8vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  cursor: pointer;
 }
 .icon {
   fill: $primary;

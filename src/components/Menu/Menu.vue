@@ -1,6 +1,9 @@
 <template>
   <div class="menu">
-    <Logo class="logo" />
+    <div class="logo-wrapper">
+      <Logo class="logo" />
+      <p>Logo</p>
+    </div>
     <div class="upper">
       <MenuItem
         name="Dashboard"
@@ -57,35 +60,40 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
+  --width: 8vw;
   position: relative;
-  width: 7vw;
+  width: var(--width);
   height: 100vh;
   background: $item;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 
   :nth-child(n) {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
   }
+
   @include xl {
-    width: 10vw;
+    --width: 10vw;
   }
   @include md {
-    width: 20vw;
+    --width: 20vw;
   }
 }
 
-.logo {
+.logo-wrapper {
+  margin-top: 1em;
+  height: 10vh;
   position: absolute;
+  cursor: pointer;
+}
 
+.logo {
   fill: $primary;
-  height: 4em;
+  height: 3em;
   @include lg {
     height: 3em;
   }
@@ -93,13 +101,16 @@ export default {
 
 .upper {
   margin-top: 15vh;
+  height: 30vh;
+  justify-content: space-evenly;
 }
 
 .down {
-  margin-bottom: 1em;
+  margin-bottom: 2em;
 }
 
 .active {
+  width: var(--width);
   background: $body;
 }
 </style>

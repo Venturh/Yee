@@ -15,8 +15,11 @@
   "dependencies": {
     "@radial-color-picker/vue-color-picker": "^4.0.0",
     "core-js": "^3.6.5",
+    "lodash": "^4.17.15",
     "vue": "^2.6.11",
+    "vue-circle-slider": "^1.0.2",
     "vue-color": "^2.7.1",
+    "vue-lodash": "^2.1.2",
     "vue-router": "^3.2.0",
     "vuex": "^3.4.0",
     "yeelight-platform": "^1.0.9"
