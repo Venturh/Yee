@@ -62,7 +62,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~@radial-color-picker/vue-color-picker/dist/vue-color-picker.min.css';
 .wrapper {
   width: 90vw;
   margin: 0 5% 0 5%;
