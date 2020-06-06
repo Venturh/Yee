@@ -9,11 +9,8 @@
 import Icon from '../Icon';
 export default {
   name: 'MenuItem',
-  props: { name: String, icon: String, index: Number },
+  props: { name: String, icon: String, index: Number, selected: Boolean },
   components: { Icon },
-  data() {
-    return { selected: true };
-  },
   methods: {
     route() {
       this.$emit('click', this.index);
@@ -34,11 +31,14 @@ export default {
   cursor: pointer;
 }
 .icon {
-  fill: $primary;
+  fill: var(--primary);
   height: 1.65em;
 
   @include lg {
     height: 1.5em;
   }
+}
+span {
+  color: var(--itemContrast);
 }
 </style>

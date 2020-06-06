@@ -57,7 +57,7 @@ export default {
 
 //color box
 /deep/ .vc-chrome-body {
-  background-color: $item;
+  background-color: var(--item);
   border-radius: 0 0 8px 8px;
   height: 0.75em;
 }
@@ -69,7 +69,7 @@ export default {
 
 //picker box
 /deep/ .vc-chrome {
-  background: $item;
+  background: var(--item);
   border-radius: 20px;
 }
 </style>

@@ -51,9 +51,9 @@ input[type='range'] {
 
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background: $itemContrast;
+  background: --var(--itemContrast);
   border-radius: 20px;
-  box-shadow: -460px 0 0 450px $primary;
+  box-shadow: -460px 0 0 450px var(--primary);
   cursor: pointer;
   height: var(--height);
   width: calc(var(--width) * 0.1);

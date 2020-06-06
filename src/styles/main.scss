@@ -1,6 +1,22 @@
 @import 'abstracts/variables';
 @import 'utils/main';
 
+:root {
+  --text-caption: 0.675em;
+  --text-button: 0.775em;
+  --text-body: 1em;
+  --text-subtitle: 1.25em;
+  --text-title: 1.5em;
+  --text-header: 2em;
+
+  //Breakpoints
+
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+}
+
 [theme='dark'] {
   --body: #1e2124;
   --bodyContrast: #e3e3e3;
@@ -17,10 +33,10 @@
   --bodyContrast: #292929;
   --primary: #58e887;
   --primaryContrast: #292929;
-  --item: #282b30;
+  --item: #e3e6dd;
   --itemTint: #292929;
   --itemShade: #141618;
-  --itemContrast: #ffff;
+  --itemContrast: #1e1e1e;
 }
 
 body,
@@ -30,7 +46,7 @@ html {
   box-sizing: border-box;
   height: 100vh;
   background: var(--body);
-  color: $bodyContrast;
+  color: var(--bodyContrast);
   font-size: 20px;
   font-family: Avenir, Helvetica, Arial, sans-serif;
 

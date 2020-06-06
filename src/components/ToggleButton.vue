@@ -53,19 +53,19 @@ export default {
   height: calc(var(--size) / 2);
   display: flex;
   align-items: center;
-  background: $itemTint;
+  background: var(--itemTint);
   border-radius: 50px;
 }
 
 .active-wrapper {
-  background: $body;
+  background: var(--body);
 }
 
 .toggle {
   position: relative;
   width: calc(var(--size) / 4);
   height: calc(var(--size) / 4);
-  background: $primary;
+  background: var(--primary);
   border-radius: 50px;
   margin: 5px;
 }

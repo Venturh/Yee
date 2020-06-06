@@ -105,7 +105,7 @@ export default {
 <style lang="scss" scoped>
 .card {
   position: relative;
-  background: $item;
+  background: var(--item);
   border-radius: 25px;
 }
 

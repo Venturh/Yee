@@ -46,7 +46,7 @@ export default {
 .item {
   display: flex;
   align-items: center;
-  background: $item;
+  background: var(--item);
 }
 
 .name-wrapper {
@@ -58,9 +58,9 @@ export default {
   width: 50%;
   border: none;
   outline: none;
-  color: $itemContrast;
-  background: $item;
-  font-size: $text-body;
+  color: var(--itemContrast);
+  background: var(--item);
+  font-size: var(--text-body);
 }
 
 .name-input-active {

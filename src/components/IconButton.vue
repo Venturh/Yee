@@ -23,7 +23,7 @@ export default {
 .button {
   border: none;
   outline: none;
-  background: $item;
+  background: var(--item);
   border-radius: 100%;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@ export default {
 }
 
 .icon {
-  fill: $primary;
+  fill: var(--primary);
   height: calc(var(--size) / 2);
 }
 </style>

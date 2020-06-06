@@ -8,6 +8,7 @@
       <MenuItem
         name="Dashboard"
         icon="dashboard"
+        :selected="selected === 0 ? true : false"
         @click="setSelected"
         :index="0"
         :class="{ active: selected === 0 }"
@@ -15,6 +16,7 @@
       <MenuItem
         name="Rooms"
         icon="rooms"
+        :selected="selected === 1 ? true : false"
         @click="setSelected"
         :index="1"
         :class="{ active: selected === 1 }"
@@ -22,6 +24,7 @@
       <MenuItem
         name="Scenes"
         icon="scenes"
+        :selected="selected === 2 ? true : false"
         @click="setSelected"
         :index="2"
         :class="{ active: selected === 2 }"
@@ -32,6 +35,7 @@
       <MenuItem
         name="Settings"
         icon="settings"
+        :selected="selected === 3 ? true : false"
         @click="setSelected"
         :index="3"
         :class="{ active: selected === 3 }"
@@ -64,7 +68,7 @@ export default {
   position: relative;
   width: var(--width);
   height: 100vh;
-  background: $item;
+  background: var(--item);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,7 +96,7 @@ export default {
 }
 
 .logo {
-  fill: $primary;
+  fill: var(--primary);
   height: 3em;
   @include lg {
     height: 3em;
@@ -111,6 +115,6 @@ export default {
 
 .active {
   width: var(--width);
-  background: $body;
+  background: var(--body);
 }
 </style>

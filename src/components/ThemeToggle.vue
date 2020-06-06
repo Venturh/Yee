@@ -10,14 +10,8 @@ export default {
       darkMode: true,
     };
   },
-  mounted() {
-    // set 'app-background' class to body
-    let bodyElement = document.body;
-    bodyElement.classList.add('app-background');
-  },
   watch: {
     darkMode: function() {
-      // add/remove class to/from html tag
       let htmlElement = document.documentElement;
 
       if (this.darkMode) {

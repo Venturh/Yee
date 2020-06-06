@@ -12,10 +12,25 @@ export default {
   components: {
     Menu,
   },
+  methods: {
+    loadTheme() {
+      let htmlElement = document.documentElement;
+      let theme = localStorage.getItem('theme');
+
+      if (theme === 'dark') {
+        htmlElement.setAttribute('theme', 'dark');
+      } else {
+        htmlElement.setAttribute('theme', 'light');
+      }
+    },
+  },
+  created() {
+    this.loadTheme();
+  },
 };
 </script>
 
-<style lang="scss">
+<style>
 .app {
   display: flex;
 }
