@@ -35,7 +35,7 @@ export default {
 }
 .icon {
   fill: $primary;
-  height: 2em;
+  height: 1.65em;
 
   @include lg {
     height: 1.5em;

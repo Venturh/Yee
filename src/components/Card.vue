@@ -23,20 +23,40 @@
       ></circle-slider>
       <span class="bright">{{ bright }}%</span>
     </div>
-    <div class="color" />
+    <pre>{{ params }}</pre>
+    <div
+      class="color"
+      :style="{
+        'background-color': `rgb(${color.r}, ${color.g}, ${color.b})`,
+      }"
+      @click="showOverlay = !showOverlay"
+    />
+    <CardOverLay
+      class="overlay"
+      @back="showOverlay = false"
+      :bulb="bulb"
+      :color="color"
+      v-if="showOverlay"
+    />
   </div>
 </template>
 
 <script>
+import _ from 'lodash';
+
 import { togglePower, changeBrightness } from '@/utils/bulbService';
 import ToggleButton from './ToggleButton';
+import CardOverLay from './CardOverlay';
+
 export default {
   name: 'Card',
-  components: { ToggleButton },
+  components: { ToggleButton, CardOverLay },
   props: { name: String, bulb: Object, params: Object },
   data() {
     return {
       bright: this.params.bright,
+      color: this.params.rgb,
+      showOverlay: false,
     };
   },
   computed: {
@@ -47,10 +67,9 @@ export default {
       get() {
         return this.bright;
       },
-      set(value) {
-        this.bright = value;
+      set: _.debounce(function(value) {
         changeBrightness(this.bulb, value);
-      },
+      }, 200),
     },
   },
   methods: {
@@ -59,9 +78,9 @@ export default {
     },
   },
   watch: {
-    params({ bright }) {
-      console.log('params -> newValue', bright);
+    params({ bright, rgb }) {
       this.bright = bright;
+      this.color = rgb;
     },
   },
 };
@@ -102,6 +121,12 @@ export default {
   width: 1.25em;
   height: 1.25em;
   border-radius: 100%;
-  background: #000;
+}
+
+.overlay {
+  position: absolute;
+  top: 51%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 </style>

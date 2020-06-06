@@ -1,3 +1,5 @@
+import { colourToNumber } from './helper';
+
 export const togglePower = (bulb, currentPower) => {
   const power = currentPower === 'on' ? 'off' : 'on';
   bulb.sendCommand({
@@ -16,20 +18,33 @@ export const changeBrightness = (bulb, brightness) => {
   });
 };
 
-export const changeHue = (bulb, { h, s }) => {
-  console.log('tochange', h, s);
-  bulb.sendCommand({
-    id: 1,
-    method: 'set_hsv',
-    params: [h, s, 'smooth', 300],
-  });
-};
-
-export const changeRGB = (bulb, red, green, blue) => {
+export const changeRGB = (bulb, { r, g, b }) => {
   bulb.sendCommand({
     id: 1,
     method: 'set_rgb',
-    params: [(red, green, blue), 'smooth', 300],
+    params: [colourToNumber(r, g, b), 'smooth', 300],
+  });
+};
+
+export const changeName = async (bulb, name) => {
+  bulb.sendCommand({
+    id: 1,
+    method: 'set_name',
+    params: [name],
+  });
+  const a = getProps(bulb);
+  console.log('changeName -> a', a);
+};
+
+export const getProps = bulb => {
+  return new Promise(resolve => {
+    resolve(
+      bulb.sendCommand({
+        id: 0,
+        method: 'get_prop',
+        params: ['power'],
+      })
+    );
   });
 };
 
@@ -45,7 +60,7 @@ export const onChange = (devices, yeelight, newProps, toChange) => {
     ...newState[index],
     params: {
       ...newState[index].params,
-      [toChange]: newProps.params[toChange],
+      [toChange]: newProps,
     },
   };
   return newState;

@@ -1,49 +1,77 @@
 <template>
   <div class="picker">
     <chrome-picker
-      class="test"
-      :disableAlpha="true"
       :disableFields="true"
+      :disableAlpha="true"
       v-model="colors"
     />
-    {{ colors.rgba }}
-    <button @click="changeColor">Change</button>
+    <div @click="$emit('back')" class="out" />
   </div>
 </template>
 
 <script>
+import _ from 'lodash';
 import { Chrome } from 'vue-color';
 
-import { changeHue } from '@/utils/bulbService';
-import { rgbToHsv } from '@/utils/helper';
+import { changeRGB } from '@/utils/bulbService';
 
 export default {
   name: 'CardOverlay',
   components: { 'chrome-picker': Chrome },
+  props: { bulb: Object, color: Object },
   data() {
     return {
       colors: {
-        hsv: { h: 150, s: 0.66, v: 0.3, a: 1 },
+        rgba: this.color,
       },
     };
   },
   methods: {
-    changeColor() {
-      const hsv = rgbToHsv(this.colors.rgba);
-      changeHue(this.devices[0].bulb, hsv);
+    changeColor: _.debounce(function(rgba) {
+      changeRGB(this.bulb, rgba);
+    }, 200),
+  },
+  watch: {
+    colors({ rgba }) {
+      this.changeColor(rgba);
+    },
+    color(value) {
+      console.log('color -> va', value);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.test,
-.vc-chrome__disable-alpha {
-  background: $itemShade;
-
-  border-radius: 100%;
+.picker {
 }
-.test .vc-chrome-body {
-  background: $itemShade;
+
+.out {
+  position: absolute;
+  width: 1.25em;
+  height: 1.25em;
+  background: rgb(140, 0, 255);
+  border-radius: 100%;
+  bottom: 0.3em;
+  left: 0.75em;
+  z-index: 1;
+}
+
+//color box
+/deep/ .vc-chrome-body {
+  background-color: $item;
+  border-radius: 0 0 8px 8px;
+  height: 0.75em;
+}
+
+//sat box
+/deep/ .vc-chrome-saturation-wrap {
+  border-radius: 8px 8px 0px 0;
+}
+
+//picker box
+/deep/ .vc-chrome {
+  background: $item;
+  border-radius: 20px;
 }
 </style>

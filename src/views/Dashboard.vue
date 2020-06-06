@@ -45,8 +45,8 @@ export default {
 
 .bulbs {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 250px));
-  grid-template-rows: repeat(auto-fit, minmax(100px, 180px));
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-rows: repeat(3, minmax(180px, 1fr));
   gap: 1em;
 }
 </style>
