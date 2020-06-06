@@ -1,13 +1,35 @@
 @import 'abstracts/variables';
 @import 'utils/main';
 
+[theme='dark'] {
+  --body: #1e2124;
+  --bodyContrast: #e3e3e3;
+  --primary: #00c6ff;
+  --primaryContrast: #101112;
+  --item: #282b30;
+  --itemTint: #42464d;
+  --itemShade: #141618;
+  --itemContrast: #ffff;
+}
+
+[theme='light'] {
+  --body: #fcfff5;
+  --bodyContrast: #292929;
+  --primary: #58e887;
+  --primaryContrast: #292929;
+  --item: #282b30;
+  --itemTint: #292929;
+  --itemShade: #141618;
+  --itemContrast: #ffff;
+}
+
 body,
 html {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   height: 100vh;
-  background-color: $body;
+  background: var(--body);
   color: $bodyContrast;
   font-size: 20px;
   font-family: Avenir, Helvetica, Arial, sans-serif;

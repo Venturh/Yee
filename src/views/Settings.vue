@@ -1,24 +1,30 @@
 <template>
   <div class="wrapper">
     <h1>Settings</h1>
-    <Card
-      v-for="(item, index) in devices"
-      :key="index"
-      :bulb="item.bulb"
-      name="Plazuhalter"
-      :params="item.params"
-    />
-    <input v-model="name" type="text" />
-    <button @click="change">Change Name</button>
+    <div class="devices">
+      <h3>Devices</h3>
+      <YeeItem
+        v-for="(item, index) in devices"
+        :key="index"
+        @onEnter="change"
+        v-bind="item"
+      />
+    </div>
+    <div class="theme">
+      <ThemeToggle />
+    </div>
   </div>
 </template>
 
 <script>
-import Card from '@/components/Card.vue';
 import { mapState, mapActions } from 'vuex';
+
+import YeeItem from '@/components/YeeItem.vue';
+import ThemeToggle from '@/components/ThemeToggle.vue';
+
 export default {
   name: 'Settings',
-  components: { Card },
+  components: { YeeItem, ThemeToggle },
   data() {
     return {
       name: '',
@@ -33,8 +39,8 @@ export default {
   },
   methods: {
     ...mapActions('yeelight', ['discovery', 'setName']),
-    change() {
-      this.setName({ bulb: this.devices[0], name: this.name });
+    change(props) {
+      this.setName({ bulb: props.bulb, name: props.name });
     },
   },
   created() {

@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="top">
-      <span>Table</span>
+      <span>{{ name }}</span>
       <ToggleButton
         class="button"
         @toggled="toggle"
@@ -13,8 +13,8 @@
       <circle-slider
         :stepSize="5"
         circleColor="#1e2124"
-        progressColor="#9387f7"
-        knobColor="#9387f7"
+        progressColor="#00c6ff"
+        knobColor="#00c6ff"
         :circle-width="10"
         :progress-width="10"
         :knob-radius="8"
@@ -23,11 +23,10 @@
       ></circle-slider>
       <span class="bright">{{ bright }}%</span>
     </div>
-    <pre>{{ params }}</pre>
     <div
       class="color"
       :style="{
-        'background-color': `rgb(${color.r}, ${color.g}, ${color.b})`,
+        'background-color': `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
       }"
       @click="showOverlay = !showOverlay"
     />
@@ -35,7 +34,7 @@
       class="overlay"
       @back="showOverlay = false"
       :bulb="bulb"
-      :color="color"
+      :color="rgb"
       v-if="showOverlay"
     />
   </div>
@@ -43,44 +42,61 @@
 
 <script>
 import _ from 'lodash';
-
-import { togglePower, changeBrightness } from '@/utils/bulbService';
-import ToggleButton from './ToggleButton';
+import ToggleButton from './ToggleButton.vue';
 import CardOverLay from './CardOverlay';
-
 export default {
-  name: 'Card',
-  components: { ToggleButton, CardOverLay },
-  props: { name: String, bulb: Object, params: Object },
+  name: 'YeeCard',
+  props: {
+    name: {
+      type: String,
+      default: 'Device',
+    },
+    power: Boolean,
+    bright: Number,
+    rgb: Object,
+    bulb: Object,
+  },
+  components: {
+    ToggleButton,
+    CardOverLay,
+  },
   data() {
     return {
-      bright: this.params.bright,
-      color: this.params.rgb,
+      brightness: this.bright,
+      powers: this.power,
       showOverlay: false,
     };
   },
   computed: {
-    computedPower: function() {
-      return this.params.power;
+    computedPower: {
+      get: function() {
+        return this.powers;
+      },
+      set: function(value) {
+        this.powers = value;
+      },
     },
     computedBright: {
       get() {
-        return this.bright;
+        return this.brightness;
       },
       set: _.debounce(function(value) {
-        changeBrightness(this.bulb, value);
+        this.bulb.setBright(value, 300);
       }, 200),
     },
   },
   methods: {
-    toggle() {
-      togglePower(this.bulb, this.params.power);
+    toggle(value) {
+      console.log('value', value);
+      this.bulb.setPower(value);
     },
   },
   watch: {
-    params({ bright, rgb }) {
-      this.bright = bright;
-      this.color = rgb;
+    bright(value) {
+      this.brightness = value;
+    },
+    power(value) {
+      this.powers = value;
     },
   },
 };

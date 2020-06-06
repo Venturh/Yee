@@ -1,11 +1,11 @@
 <template>
   <div
     class="wrapper"
-    :class="{ 'active-wrapper': a }"
+    :class="{ 'active-wrapper': computedActive }"
     @click="toggle"
     :style="{ '--size': size }"
   >
-    <div class="toggle" :class="{ 'active-toggle': a }" />
+    <div class="toggle" :class="{ 'active-toggle': computedActive }" />
   </div>
 </template>
 
@@ -13,26 +13,26 @@
 export default {
   name: 'ToggleButton',
   props: {
-    active: String,
+    active: Boolean,
     size: { type: String, default: '75px' },
   },
   data() {
-    return { a: this.active === 'on' ? true : false };
+    return { a: this.active };
   },
   computed: {
     computedActive: {
       get: function() {
-        return this.active;
+        return this.a;
       },
       set: function(newValue) {
-        this.a = newValue === 'on' ? true : false;
+        this.a = newValue;
       },
     },
   },
   methods: {
     toggle() {
       this.computedActive = !this.computedActive;
-      this.$emit('toggled');
+      this.$emit('toggled', this.computedActive);
     },
   },
   watch: {
@@ -58,22 +58,22 @@ export default {
 }
 
 .active-wrapper {
-  background: $primary;
+  background: $body;
 }
 
 .toggle {
   position: relative;
-  width: calc(var(--size) / 2.5);
-  height: calc(var(--size) / 2.5);
-  background: $itemContrast;
+  width: calc(var(--size) / 4);
+  height: calc(var(--size) / 4);
+  background: $primary;
   border-radius: 50px;
   margin: 5px;
 }
 
 .active-toggle {
-  transform: translateX(calc(var(--size) * 0.7));
-  width: calc(var(--size) / 6);
-  height: calc(var(--size) / 3);
+  transform: translateX(calc(var(--size) * 0.6));
+  width: calc(var(--size) / 4);
+  height: calc(var(--size) / 4);
   margin: 0px;
 }
 </style>

@@ -1,76 +1,52 @@
-import { Discovery, Device } from 'yeelight-platform';
+import { Lookup } from 'node-yeelight-wifi';
+import { onChange } from '@/utils/bulbService';
 
-import { numberToColour } from '@/utils/helper';
-import { onChange, changeName, getProps } from '../../utils/bulbService';
 const actions = {
-  async discovery({ state }) {
+  async discovery({ state, dispatch }) {
     state.discovering = true;
-    const discoveryService = new Discovery();
-    discoveryService.once('didDiscoverDevice', async device => {
-      const yeelight = new Device({ host: device.host, port: device.port });
-
-      yeelight.connect();
-
-      yeelight.on('connected', async () => {
-        console.log('device', yeelight);
-        const a = await getProps(yeelight);
-        console.log('discovery -> a', a);
-        state.devices.push({
-          id: device.id,
-          bulb: yeelight,
-          params: {
-            power: device.power,
-            bright: parseInt(device.bright),
-            rgb: numberToColour(device.rgb),
-            name: getProps(yeelight),
-          },
-        });
-        state.devices.push({
-          id: device.id,
-          bulb: yeelight,
-          params: {
-            power: device.power,
-            bright: parseInt(device.bright),
-            rgb: numberToColour(device.rgb),
-          },
-        });
+    let look = new Lookup();
+    look.on('detected', device => {
+      state.devices.push({
+        id: device.id,
+        name: device.name,
+        power: device.power,
+        bright: device.bright,
+        rgb: device.rgb,
+        bulb: device,
       });
-
-      yeelight.on('deviceUpdate', newProps => {
-        if (newProps['method'] === 'props') {
-          console.log('props', newProps.params);
-          const { power, bright, rgb } = newProps.params;
-          if (rgb) {
-            state.devices = onChange(
-              state.devices,
-              yeelight,
-              numberToColour(rgb),
-              'rgb'
-            );
-          }
-          if (power) {
-            console.log('power', power);
-            state.devices = onChange(state.devices, yeelight, power, 'power');
-          }
-          if (bright) {
-            state.devices = onChange(state.devices, yeelight, bright, 'bright');
-          }
-        }
-      });
+      dispatch('setListeners', device);
     });
-    discoveryService.listen();
-    setTimeout(() => {
-      discoveryService.socket.close();
-    }, 5000);
   },
+
+  setListeners({ state }, device) {
+    device.on('stateUpdate', device => {
+      const { power, bright, rgb, name } = device;
+      if (rgb) {
+        state.devices = onChange(state.devices, device, rgb, 'rgb');
+      }
+      if (power != null) {
+        state.devices = onChange(state.devices, device, power, 'power');
+      }
+      if (bright) {
+        state.devices = onChange(state.devices, device, bright, 'bright');
+      }
+      if (name) {
+        state.devices = onChange(state.devices, device, name, 'name');
+      }
+    });
+  },
+
   async setName({ state }, props) {
+    // console.log('setName -> props', props.name);
+
+    state.loadingName = true;
     const { name, bulb } = props;
-    console.log('changename', name, bulb.bulb);
-    changeName(bulb.bulb, name);
-    const index = state.devices.findIndex(
-      e => e.bulb.device.host == bulb.bulb.device.host
-    );
-    console.log('index', index);
+    bulb.sendCommand('set_name', [name]).catch(() => console.log(state));
+    setTimeout(() => {
+      bulb.updateState();
+    }, 1500);
+    state.loadingName = false;
+    //geht leider nur so noch kleine lade anzeige rein oder so
   },
 };
 

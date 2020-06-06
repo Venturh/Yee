@@ -1,6 +1,6 @@
 const state = {
   discovering: false,
-  loading: false,
+  loadingName: false,
   devices: [],
 };
 

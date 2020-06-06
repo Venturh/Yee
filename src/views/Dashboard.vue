@@ -2,25 +2,18 @@
   <div class="wrapper">
     <h1>Dashboard</h1>
     <div class="bulbs">
-      <Card
-        v-for="(item, index) in devices"
-        :key="index"
-        :bulb="item.bulb"
-        name="Plazuhalter"
-        :params="item.params"
-      />
+      <YeeCard v-for="(item, index) in devices" :key="index" v-bind="item" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
-
-import Card from '@/components/Card';
+import YeeCard from '@/components/YeeCard.vue';
 
 export default {
   name: 'Home',
-  components: { Card },
+  components: { YeeCard },
   computed: {
     ...mapState('yeelight', {
       devices: state => state.devices,

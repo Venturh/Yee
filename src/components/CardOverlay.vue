@@ -13,22 +13,20 @@
 import _ from 'lodash';
 import { Chrome } from 'vue-color';
 
-import { changeRGB } from '@/utils/bulbService';
-
 export default {
   name: 'CardOverlay',
   components: { 'chrome-picker': Chrome },
-  props: { bulb: Object, color: Object },
+  props: { bulb: Object, rgb: Object },
   data() {
     return {
       colors: {
-        rgba: this.color,
+        rgba: this.rgb,
       },
     };
   },
   methods: {
-    changeColor: _.debounce(function(rgba) {
-      changeRGB(this.bulb, rgba);
+    changeColor: _.debounce(function({ r, g, b }) {
+      this.bulb.setRGB([r, g, b], 300);
     }, 200),
   },
   watch: {
