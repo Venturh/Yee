@@ -13,8 +13,8 @@
       <circle-slider
         :stepSize="5"
         circleColor="#1e2124"
-        progressColor="#00c6ff"
-        knobColor="#00c6ff"
+        progressColor="var(--primary)"
+        knobColor="var(--primary)"
         :circle-width="10"
         :progress-width="10"
         :knob-radius="8"

@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <h1>Settings</h1>
+    <Themes />
     <div class="devices">
       <h3>Devices</h3>
       <YeeItem
@@ -10,21 +11,18 @@
         v-bind="item"
       />
     </div>
-    <div class="theme">
-      <ThemeToggle />
-    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex';
 
+import Themes from './Themes.vue';
 import YeeItem from '@/components/YeeItem.vue';
-import ThemeToggle from '@/components/ThemeToggle.vue';
 
 export default {
   name: 'Settings',
-  components: { YeeItem, ThemeToggle },
+  components: { YeeItem, Themes },
   data() {
     return {
       name: '',
@@ -49,4 +47,9 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.wrapper {
+  width: 100%;
+  margin: 0 5% 0 5%;
+}
+</style>

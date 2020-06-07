@@ -17,10 +17,10 @@ export default {
       let htmlElement = document.documentElement;
       let theme = localStorage.getItem('theme');
 
-      if (theme === 'dark') {
-        htmlElement.setAttribute('theme', 'dark');
-      } else {
-        htmlElement.setAttribute('theme', 'light');
+      if (theme === 'shalimar') {
+        htmlElement.setAttribute('theme', 'shalimar');
+      } else if (theme === 'pastelgreen') {
+        htmlElement.setAttribute('theme', 'pastelgreen');
       }
     },
   },

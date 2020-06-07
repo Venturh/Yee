@@ -9,15 +9,6 @@
   --text-title: 1.5em;
   --text-header: 2em;
 
-  //Breakpoints
-
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-}
-
-[theme='dark'] {
   --body: #1e2124;
   --bodyContrast: #e3e3e3;
   --primary: #00c6ff;
@@ -26,17 +17,23 @@
   --itemTint: #42464d;
   --itemShade: #141618;
   --itemContrast: #ffff;
+
+  //Breakpoints
+
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
 }
 
-[theme='light'] {
-  --body: #fcfff5;
-  --bodyContrast: #292929;
+[theme='shalimar'] {
+  --primary: #feffbe;
+  --primaryContrast: #101112;
+}
+
+[theme='pastelgreen'] {
   --primary: #58e887;
-  --primaryContrast: #292929;
-  --item: #e3e6dd;
-  --itemTint: #292929;
-  --itemShade: #141618;
-  --itemContrast: #1e1e1e;
+  --primaryContrast: #101112;
 }
 
 body,
