@@ -36,7 +36,6 @@ export default {
       this.checkTheme(this.theme);
     },
     checkTheme(toCheck) {
-      console.log('checkTheme -> toCheck', toCheck);
       let htmlElement = document.documentElement;
       switch (toCheck) {
         case 'shalimar':

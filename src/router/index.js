@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Dashboard from '../views/Dashboard.vue';
+import Rooms from '../views/Rooms.vue';
+import Scenes from '../views/Scenes.vue';
+import Settings from '../views/Settings/Settings.vue';
 
 Vue.use(VueRouter);
 
@@ -14,17 +17,17 @@ const routes = [
   {
     path: '/rooms',
     name: 'Rooms',
-    component: () => import('../views/Rooms.vue'),
+    component: Rooms,
   },
   {
     path: '/scenes',
     name: 'Scenes',
-    component: () => import('../views/Scenes.vue'),
+    component: Scenes,
   },
   {
     path: '/settings',
     name: 'Settings',
-    component: () => import('../views/Settings/Settings.vue'),
+    component: Settings,
   },
 ];
 

@@ -1,7 +1,7 @@
 <template>
   <div @click="route" class="wrapper">
     <Icon class="icon" :icon="icon" />
-    <span class="text-button">{{ name }}</span>
+    <span class="text-button">{{ itemName }}</span>
   </div>
 </template>
 
@@ -9,12 +9,16 @@
 import Icon from '../Icon';
 export default {
   name: 'MenuItem',
-  props: { name: String, icon: String, index: Number, selected: Boolean },
+  props: { itemName: String },
+  computed: {
+    icon() {
+      return this.itemName.toLowerCase();
+    },
+  },
   components: { Icon },
   methods: {
     route() {
-      this.$emit('click', this.index);
-      this.$router.push(this.icon, () => {});
+      this.$emit('click', this.itemName);
     },
   },
 };
@@ -33,10 +37,6 @@ export default {
 .icon {
   fill: var(--primary);
   height: 1.65em;
-
-  @include lg {
-    height: 1.5em;
-  }
 }
 span {
   color: var(--itemContrast);

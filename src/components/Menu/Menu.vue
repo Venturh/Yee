@@ -2,43 +2,22 @@
   <div class="menu">
     <div class="logo-wrapper">
       <Logo class="logo" />
-      <p>Logo</p>
+      <span>Yee</span>
     </div>
     <div class="upper">
       <MenuItem
-        name="Dashboard"
-        icon="dashboard"
-        :selected="selected === 0 ? true : false"
+        v-for="(item, index) in menuitems"
+        :key="index"
+        :itemName="item"
         @click="setSelected"
-        :index="0"
-        :class="{ active: selected === 0 }"
-      />
-      <MenuItem
-        name="Rooms"
-        icon="rooms"
-        :selected="selected === 1 ? true : false"
-        @click="setSelected"
-        :index="1"
-        :class="{ active: selected === 1 }"
-      />
-      <MenuItem
-        name="Scenes"
-        icon="scenes"
-        :selected="selected === 2 ? true : false"
-        @click="setSelected"
-        :index="2"
-        :class="{ active: selected === 2 }"
+        :class="{ active: item === currentRoute }"
       />
     </div>
-
     <div class="down">
       <MenuItem
-        name="Settings"
-        icon="settings"
-        :selected="selected === 3 ? true : false"
+        itemName="Settings"
         @click="setSelected"
-        :index="3"
-        :class="{ active: selected === 3 }"
+        :class="{ active: currentRoute === 'Settings' }"
       />
     </div>
   </div>
@@ -51,12 +30,15 @@ export default {
   name: 'Menu',
   components: { MenuItem, Logo },
   data() {
-    return { selected: 0 };
+    return {
+      menuitems: ['Dashboard', 'Rooms', 'Scenes'],
+      currentRoute: this.$route.name,
+    };
   },
   methods: {
-    setSelected(value) {
-      console.log('setSelectred', value);
-      this.selected = value;
+    setSelected(itemName) {
+      this.$router.push(itemName, () => {});
+      this.currentRoute = itemName;
     },
   },
 };
@@ -92,13 +74,18 @@ export default {
   cursor: pointer;
 }
 
+.logo-wrapper span {
+  margin-top: 0.5em;
+  font-size: var(--text-button);
+}
+
 .logo {
   fill: var(--primary);
-  height: 3em;
+  height: 2.5em;
 }
 
 .upper {
-  margin-top: 12.5vh;
+  margin-top: 12vh;
   height: 30vh;
   display: flex;
   flex-direction: column;
