@@ -6,6 +6,8 @@
         v-for="(theme, index) in themes"
         :key="index"
         v-bind="theme"
+        :index="index"
+        :selected="selected"
         size="1.85em"
         space="3em"
         @action="changeTheme"
@@ -20,6 +22,7 @@ export default {
   components: { ThemeToggle },
   data() {
     return {
+      selected: 0,
       theme: 'shalimar',
       themes: [
         { theme: 'shalimar', color: '#FEFFBE' },
@@ -30,24 +33,28 @@ export default {
   methods: {
     changeTheme(value) {
       this.theme = value;
+      this.checkTheme(this.theme);
     },
-  },
-  watch: {
-    theme() {
+    checkTheme(toCheck) {
+      console.log('checkTheme -> toCheck', toCheck);
       let htmlElement = document.documentElement;
-      switch (this.theme) {
+      switch (toCheck) {
         case 'shalimar':
           localStorage.setItem('theme', 'shalimar');
           htmlElement.setAttribute('theme', 'shalimar');
+          this.selected = 0;
           break;
         case 'pastelgreen':
           localStorage.setItem('theme', 'pastelgreen');
           htmlElement.setAttribute('theme', 'pastelgreen');
-          break;
-        default:
+          this.selected = 1;
           break;
       }
     },
+  },
+  created() {
+    let theme = localStorage.getItem('theme');
+    this.checkTheme(theme);
   },
 };
 </script>
@@ -56,6 +63,10 @@ export default {
 .theme-wrapper {
   display: flex;
   align-items: center;
+}
+
+h3 {
+  width: 100px;
 }
 
 .themes {

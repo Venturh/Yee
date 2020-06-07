@@ -1,11 +1,19 @@
 <template>
   <div
     class="test"
-    :style="{ '--color': color, '--size': size, '--space': space }"
+    @click="$emit('action', theme)"
+    :style="{
+      '--color': color,
+      '--size': size,
+      '--space': space,
+    }"
   >
-    <div class="wrapper">
+    <div
+      class="wrapper"
+      :style="{ '--selected': selected === index ? 'white' : '#42464d' }"
+    >
       <div class="bg-color">
-        <div class="theme-color" @click="switchMode" />
+        <div class="theme-color" />
       </div>
     </div>
   </div>
@@ -17,13 +25,10 @@ export default {
   props: {
     theme: String,
     color: String,
+    index: Number,
+    selected: Number,
     size: { type: String, default: '2em' },
     space: { type: String, default: '2.5em' },
-  },
-  methods: {
-    switchMode() {
-      this.$emit('action', this.theme);
-    },
   },
 };
 </script>
@@ -34,7 +39,7 @@ export default {
 }
 
 .wrapper {
-  background-color: white;
+  background-color: var(--selected);
   border-radius: 100%;
   width: var(--size);
   height: var(--size);

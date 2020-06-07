@@ -64,7 +64,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  --width: 8vw;
+  --width: 6vw;
   position: relative;
   width: var(--width);
   height: 100vh;
@@ -73,12 +73,6 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-
-  :nth-child(n) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
 
   @include xl {
     --width: 10vw;
@@ -92,25 +86,30 @@ export default {
   margin-top: 1em;
   height: 10vh;
   position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   cursor: pointer;
 }
 
 .logo {
   fill: var(--primary);
   height: 3em;
-  @include lg {
-    height: 3em;
-  }
 }
 
 .upper {
-  margin-top: 15vh;
+  margin-top: 12.5vh;
   height: 30vh;
-  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .down {
   margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .active {

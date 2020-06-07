@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper">
     <h1>Settings</h1>
+    <Fonts />
     <Themes />
     <div class="devices">
       <h3>Devices</h3>
@@ -18,11 +19,12 @@
 import { mapState, mapActions } from 'vuex';
 
 import Themes from './Themes.vue';
+import Fonts from './Fonts.vue';
 import YeeItem from '@/components/YeeItem.vue';
 
 export default {
   name: 'Settings',
-  components: { YeeItem, Themes },
+  components: { YeeItem, Themes, Fonts },
   data() {
     return {
       name: '',

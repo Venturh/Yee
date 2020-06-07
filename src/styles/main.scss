@@ -24,7 +24,12 @@
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
+
+  --fontSize: 20px;
+  --mediumFontSize: 16px;
 }
+
+//Themes
 
 [theme='shalimar'] {
   --primary: #feffbe;
@@ -36,6 +41,23 @@
   --primaryContrast: #101112;
 }
 
+//Font Sizes Theme
+
+[fontSize='large'] {
+  --fontSize: 25px;
+  --mediumFontSize: 20px;
+}
+
+[fontSize='medium'] {
+  --fontSize: 20px;
+  --mediumFontSize: 16px;
+}
+
+[fontSize='small'] {
+  --fontSize: 15px;
+  --mediumFontSize: 10px;
+}
+
 body,
 html {
   padding: 0;
@@ -44,10 +66,11 @@ html {
   height: 100vh;
   background: var(--body);
   color: var(--bodyContrast);
-  font-size: 20px;
+  font-size: var(--fontSize);
   font-family: Avenir, Helvetica, Arial, sans-serif;
 
   @include md {
-    font-size: 16px;
+    --fontSize: 16px;
+    font-size: var(--mediumFontSize);
   }
 }
