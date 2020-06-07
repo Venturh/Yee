@@ -9,6 +9,7 @@
         v-for="(item, index) in menuitems"
         :key="index"
         :itemName="item"
+        :currentRoute="currentRoute"
         @click="setSelected"
         :class="{ active: item === currentRoute }"
       />
@@ -17,6 +18,7 @@
       <MenuItem
         itemName="Settings"
         @click="setSelected"
+        :currentRoute="currentRoute"
         :class="{ active: currentRoute === 'Settings' }"
       />
     </div>
@@ -46,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  --width: 6vw;
+  --width: 7.5vw;
   position: relative;
   width: var(--width);
   height: 100vh;

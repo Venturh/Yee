@@ -2,6 +2,7 @@
   <div @click="route" class="wrapper">
     <Icon class="icon" :icon="icon" />
     <span class="text-button">{{ itemName }}</span>
+    <div v-if="currentRoute === itemName" class="indicator" />
   </div>
 </template>
 
@@ -9,7 +10,7 @@
 import Icon from '../Icon';
 export default {
   name: 'MenuItem',
-  props: { itemName: String },
+  props: { itemName: String, currentRoute: String },
   computed: {
     icon() {
       return this.itemName.toLowerCase();
@@ -26,6 +27,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
+  position: relative;
   width: 100%;
   height: 8vh;
   display: flex;
@@ -40,5 +42,14 @@ export default {
 }
 span {
   color: var(--itemContrast);
+}
+
+.indicator {
+  position: absolute;
+  right: 0;
+  width: 3%;
+  height: 4vh;
+  background: var(--primary);
+  border-radius: 10px;
 }
 </style>
