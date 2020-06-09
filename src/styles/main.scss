@@ -76,3 +76,16 @@ html {
     font-size: var(--mediumFontSize);
   }
 }
+
+.section {
+  width: 92.5vw;
+  margin: 0 5% 0 5%;
+
+  @include xl {
+    width: 90vw;
+  }
+
+  @include md {
+    width: 85vw;
+  }
+}

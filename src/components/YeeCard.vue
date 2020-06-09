@@ -34,7 +34,7 @@
       class="overlay"
       @back="showOverlay = false"
       :bulb="bulb"
-      :color="rgb"
+      :rgb="rgb"
       v-if="showOverlay"
     />
   </div>

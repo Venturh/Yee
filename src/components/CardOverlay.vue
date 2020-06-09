@@ -5,7 +5,13 @@
       :disableAlpha="true"
       v-model="colors"
     />
-    <div @click="$emit('back')" class="out" />
+    <div
+      class="out"
+      @click="$emit('back')"
+      :style="{
+        background: 'rgb(colors.rgba.r, colors.rgba.b, colors.rgba.g)',
+      }"
+    />
   </div>
 </template>
 
@@ -33,9 +39,6 @@ export default {
     colors({ rgba }) {
       this.changeColor(rgba);
     },
-    color(value) {
-      console.log('color -> va', value);
-    },
   },
 };
 </script>
@@ -48,7 +51,6 @@ export default {
   position: absolute;
   width: 1.25em;
   height: 1.25em;
-  background: rgb(140, 0, 255);
   border-radius: 100%;
   bottom: 0.3em;
   left: 0.75em;

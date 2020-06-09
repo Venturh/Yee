@@ -1,10 +1,10 @@
 <template v-once>
-  <div class="dash-wrapper">
+  <section class="section">
     <h1>Dashboard</h1>
     <div class="bulbs">
       <YeeCard v-for="(item, index) in devices" :key="index" v-bind="item" />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -31,11 +31,6 @@ export default {
 </script>
 
 <style lang="scss">
-.dash-wrapper {
-  width: 90vw;
-  margin: 0 5% 0 5%;
-}
-
 .bulbs {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));

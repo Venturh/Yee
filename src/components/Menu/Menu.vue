@@ -14,14 +14,6 @@
         :class="{ active: item === currentRoute }"
       />
     </div>
-    <div class="down">
-      <MenuItem
-        itemName="Settings"
-        @click="setSelected"
-        :currentRoute="currentRoute"
-        :class="{ active: currentRoute === 'Settings' }"
-      />
-    </div>
   </div>
 </template>
 
@@ -33,7 +25,7 @@ export default {
   components: { MenuItem, Logo },
   data() {
     return {
-      menuitems: ['Dashboard', 'Rooms', 'Scenes'],
+      menuitems: ['Dashboard', 'Rooms', 'Scenes', 'Settings'],
       currentRoute: this.$route.name,
     };
   },
@@ -86,10 +78,13 @@ export default {
 }
 
 .upper {
-  height: 30vh;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  div:last-of-type {
+    margin-top: auto;
+  }
 }
 
 /deep/ .wrapper {
@@ -99,9 +94,6 @@ export default {
 .down {
   position: absolute;
   bottom: 1em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .active {

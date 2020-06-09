@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 .font-wrapper {
   display: flex;
   align-items: center;
@@ -73,5 +73,8 @@ export default {
   margin: 0 0em 1em 1em;
   display: flex;
   align-items: flex-end;
+  :nth-child(n) {
+    margin-right: 0.7em;
+  }
 }
 </style>

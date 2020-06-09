@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <section class="section">
     <h1>Settings</h1>
     <Fonts />
     <Themes />
@@ -12,7 +12,7 @@
         v-bind="item"
       />
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -49,8 +49,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .wrapper {
-  margin: 0 5% 0 5%;
 }
 </style>
