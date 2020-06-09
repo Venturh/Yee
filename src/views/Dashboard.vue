@@ -1,5 +1,5 @@
 <template v-once>
-  <div class="wrapper">
+  <div class="dash-wrapper">
     <h1>Dashboard</h1>
     <div class="bulbs">
       <YeeCard v-for="(item, index) in devices" :key="index" v-bind="item" />
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
+.dash-wrapper {
   width: 90vw;
   margin: 0 5% 0 5%;
 }

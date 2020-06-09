@@ -1,7 +1,7 @@
 <template>
   <div class="menu">
     <div class="logo-wrapper">
-      <Logo class="logo" />
+      <Logo />
       <span>Yee</span>
     </div>
     <div class="upper">
@@ -48,28 +48,27 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   --width: 7.5vw;
   position: relative;
   width: var(--width);
   height: 100vh;
   background: var(--item);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
 
   @include xl {
     --width: 10vw;
   }
+
   @include md {
-    --width: 20vw;
+    --width: 15vw;
   }
 }
 
 .logo-wrapper {
   margin-top: 1em;
   height: 10vh;
-  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -81,21 +80,25 @@ export default {
   font-size: var(--text-button);
 }
 
-.logo {
+.logo-wrapper svg {
   fill: var(--primary);
-  height: 2.5em;
+  height: 2em;
 }
 
 .upper {
-  margin-top: 12vh;
   height: 30vh;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/deep/ .wrapper {
+  margin-top: 1em;
+}
+
 .down {
-  margin-bottom: 2em;
+  position: absolute;
+  bottom: 1em;
   display: flex;
   flex-direction: column;
   align-items: center;

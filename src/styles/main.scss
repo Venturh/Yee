@@ -64,6 +64,8 @@ html {
   margin: 0;
   box-sizing: border-box;
   height: 100vh;
+  overflow: hidden;
+  max-height: 100vh;
   background: var(--body);
   color: var(--bodyContrast);
   font-size: var(--fontSize);
