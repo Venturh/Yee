@@ -2,7 +2,12 @@
   <div v-if="cardStyle == 0" class="card">
     <div class="top">
       <span>{{ name }}</span>
-      <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
+      <ToggleButton
+        class="button"
+        @toggled="toggle"
+        :active="computedPower"
+        size="2.5em"
+      />
     </div>
     <div class="slider">
       <circle-slider
@@ -10,9 +15,9 @@
         circleColor="#1e2124"
         progressColor="var(--primary)"
         knobColor="var(--primary)"
-        :circle-width="10"
-        :progress-width="10"
-        :knob-radius="8"
+        :circle-width="8"
+        :progress-width="8"
+        :knob-radius="6"
         :side="100"
         v-model="computedBright"
       ></circle-slider>
@@ -37,7 +42,12 @@
   <div v-else class="card">
     <div class="horiz-top">
       <span>{{ name }}</span>
-      <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
+      <ToggleButton
+        class="button"
+        @toggled="toggle"
+        :active="computedPower"
+        size="2.5em"
+      />
     </div>
 
     <RangeSlider class="horiz-slider" v-model="computedBright" />
@@ -159,8 +169,8 @@ export default {
 
 .color {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 1em;
+  bottom: 1em;
   width: 1.25em;
   height: 1.25em;
   border-radius: 100%;

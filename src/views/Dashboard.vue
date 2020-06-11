@@ -34,7 +34,7 @@ export default {
 .bulbs {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
-  grid-auto-rows: minmax(0, 10em);
+  grid-auto-rows: minmax(10em, 1fr);
   gap: 1em;
 }
 </style>

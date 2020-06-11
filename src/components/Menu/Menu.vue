@@ -40,13 +40,14 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   --width: 7.5vw;
   position: relative;
   width: var(--width);
-  height: 100vh;
+
   background: var(--item);
 
   @include xl {
