@@ -63,9 +63,6 @@ html {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  height: 100vh;
-  overflow: hidden;
-  max-height: 100vh;
   background: var(--body);
   color: var(--bodyContrast);
   font-size: var(--fontSize);
@@ -78,6 +75,7 @@ html {
 }
 
 .section {
+  max-height: 100vh;
   width: 92.5vw;
   margin: 0 5% 0 5%;
 
@@ -87,5 +85,6 @@ html {
 
   @include md {
     width: 85vw;
+    height: 100%;
   }
 }

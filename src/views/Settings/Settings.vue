@@ -3,6 +3,7 @@
     <h1>Settings</h1>
     <Fonts />
     <Themes />
+    <CardStyles />
     <div class="devices">
       <h3>Devices</h3>
       <YeeItem
@@ -20,11 +21,12 @@ import { mapState, mapActions } from 'vuex';
 
 import Themes from './Themes.vue';
 import Fonts from './Fonts.vue';
+import CardStyles from './CardStyles.vue';
 import YeeItem from '@/components/YeeItem.vue';
 
 export default {
   name: 'Settings',
-  components: { YeeItem, Themes, Fonts },
+  components: { YeeItem, Themes, Fonts, CardStyles },
   data() {
     return {
       name: '',

@@ -1,5 +1,7 @@
 <template>
-  <div class="wrapper"><h1>Rooms</h1></div>
+  <div class="wrapper">
+    <h1>Rooms</h1>
+  </div>
 </template>
 
 <script>

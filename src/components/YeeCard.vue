@@ -1,13 +1,8 @@
 <template>
-  <div class="card">
+  <div v-if="cardStyle == 0" class="card">
     <div class="top">
       <span>{{ name }}</span>
-      <ToggleButton
-        class="button"
-        @toggled="toggle"
-        :active="computedPower"
-        size="2.5em"
-      />
+      <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
     </div>
     <div class="slider">
       <circle-slider
@@ -38,12 +33,39 @@
       v-if="showOverlay"
     />
   </div>
+
+  <div v-else class="card">
+    <div class="horiz-top">
+      <span>{{ name }}</span>
+      <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
+    </div>
+
+    <RangeSlider class="horiz-slider" v-model="computedBright" />
+
+    <div
+      class="horiz-color"
+      :style="{
+        'background-color': `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
+      }"
+      @click="showOverlay = !showOverlay"
+    />
+    <span class="horiz-bright">Brightness: {{ bright }}%</span>
+    <CardOverLay
+      class="overlay"
+      @back="showOverlay = false"
+      :bulb="bulb"
+      :rgb="rgb"
+      v-if="showOverlay"
+    />
+  </div>
 </template>
 
 <script>
 import _ from 'lodash';
 import ToggleButton from './ToggleButton.vue';
-import CardOverLay from './CardOverlay';
+import CardOverLay from './CardOverlay.vue';
+import RangeSlider from './RangeSlider.vue';
+
 export default {
   name: 'YeeCard',
   props: {
@@ -59,12 +81,14 @@ export default {
   components: {
     ToggleButton,
     CardOverLay,
+    RangeSlider,
   },
   data() {
     return {
       brightness: this.bright,
       powers: this.power,
       showOverlay: false,
+      cardStyle: localStorage.getItem('cardstyle'),
     };
   },
   computed: {
@@ -87,7 +111,6 @@ export default {
   },
   methods: {
     toggle(value) {
-      console.log('value', value);
       this.bulb.setPower(value);
     },
   },
@@ -103,6 +126,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cards {
+  position: relative;
+}
+
 .card {
   position: relative;
   background: var(--item);
@@ -133,6 +160,38 @@ export default {
 .color {
   position: absolute;
   left: 50%;
+  transform: translateX(-50%);
+  width: 1.25em;
+  height: 1.25em;
+  border-radius: 100%;
+}
+
+.horiz-top {
+  margin: 1em 2em 0em 3em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.horiz-slider {
+  position: absolute;
+  top: 80%;
+  left: 1.5em;
+}
+
+.horiz-bright {
+  font-size: var(--text-button);
+  position: absolute;
+  bottom: 1em;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+.horiz-color {
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
   transform: translateX(-50%);
   width: 1.25em;
   height: 1.25em;

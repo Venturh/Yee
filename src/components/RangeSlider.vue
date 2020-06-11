@@ -1,62 +1,53 @@
 <template>
-  <input
-    type="range"
-    v-model="model"
-    v-on:change="onChange"
-    class="slider"
-    :style="{ '--height': height, '--width': width }"
-  />
+  <div class="wrapper">
+    <input
+      class="test"
+      type="range"
+      v-model="model"
+      @input="$emit('input', parseInt($event.target.value))"
+    />
+  </div>
 </template>
 <script>
 export default {
   name: 'RangeSlider',
   props: {
-    value: Number,
-    height: { type: String, default: '2vh' },
-    width: { type: String, default: '100%' },
+    bright: Number,
   },
   data() {
-    return { model: this.value };
-  },
-  methods: {
-    onChange() {
-      this.$emit('onChange', this.inputHandle);
-    },
-  },
-  computed: {
-    inputHandle() {
-      return this.model;
-    },
-  },
-  watch: {
-    value(value) {
-      this.model = value;
-    },
+    return { model: this.bright };
   },
 };
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+}
+
 input[type='range'] {
-  --width: 100%;
-  --height: 2vh;
   -webkit-appearance: none;
-  background-color: transparent;
-  height: var(--height);
-  width: var(--width);
+  appearance: none;
   outline: transparent;
+  transform: rotate(270deg);
+  transform-origin: left;
+  overflow: hidden;
+
+  height: 1em;
+  background: var(--body);
+
   border-radius: 20px;
   overflow: hidden;
 }
 
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  background: --var(--itemContrast);
+  width: 1.1em;
+  height: 1.1em;
+
+  background: var(--primary);
+  border-left: 0.05em solid black;
   border-radius: 20px;
-  box-shadow: -460px 0 0 450px var(--primary);
+  box-shadow: -800px 0 0 790px var(--primary);
   cursor: pointer;
-  height: var(--height);
-  width: calc(var(--width) * 0.1);
-  border: 0;
 }
 </style>

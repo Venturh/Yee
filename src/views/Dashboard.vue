@@ -33,8 +33,8 @@ export default {
 <style lang="scss">
 .bulbs {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  grid-template-rows: repeat(3, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
+  grid-auto-rows: minmax(0, 10em);
   gap: 1em;
 }
 </style>
