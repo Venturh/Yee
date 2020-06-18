@@ -6,41 +6,18 @@ const actions = {
     state.discovering = true;
     let look = new Lookup();
     look.on('detected', device => {
-      state.devices.push({
-        id: device.id,
-        name: device.name,
-        power: device.power,
-        bright: device.bright,
-        hsv: device.hsb,
-        rgb: device.rgb,
-        bulb: device,
-      });
+      state.devices.push(device);
       dispatch('setListeners', device);
     });
   },
 
   setListeners({ state }, device) {
     device.on('stateUpdate', device => {
-      console.log('setListeners -> device', device);
-      const { power, bright, rgb, name } = device;
-
-      if (rgb) {
-        state.devices = onChange(state.devices, device, rgb, 'rgb');
-      }
-      if (power != null) {
-        state.devices = onChange(state.devices, device, power, 'power');
-      }
-      if (bright) {
-        state.devices = onChange(state.devices, device, bright, 'bright');
-      }
-      if (name) {
-        state.devices = onChange(state.devices, device, name, 'name');
-      }
+      state.devices = onChange(state.devices, device);
     });
   },
 
   setPower({ state }, { bulb, power }) {
-    console.log('setPower -> power', bulb, power);
     state.loading = true;
     bulb.setPower(!power);
     state.loading = false;

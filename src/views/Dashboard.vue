@@ -5,12 +5,18 @@
       <YeeCard
         v-for="(item, index) in devices"
         :key="index"
-        v-bind="item"
+        :name="item.name"
+        :power="item.power"
+        :bright="item.bright"
+        :rgb="item.rgb"
+        :bulb="item"
         @action="toggleOverlay"
       />
     </div>
-    <div v-if="showOverlay" class="overlay">
-      <Overlay @toggle="toggleOverlay" v-bind="selected" />
+    <div class="overlay">
+      <transition name="toggle">
+        <Overlay v-if="showOverlay" @toggle="toggleOverlay" v-bind="selected" />
+      </transition>
     </div>
   </section>
 </template>
@@ -19,7 +25,7 @@
 import { mapState, mapActions } from 'vuex';
 
 import YeeCard from '@/components/YeeCard.vue';
-import Overlay from '@/components/Overlay/Overlay.vue';
+import Overlay from '@/components/Overlay.vue';
 
 export default {
   name: 'Home',
@@ -60,5 +66,17 @@ export default {
   left: 50%;
   top: 0;
   transform: translateX(-50%);
+}
+
+.toggle-enter-active {
+  transition: all 0.5s ease;
+}
+.toggle-leave-active {
+  transition: all 0.5s ease;
+}
+.toggle-enter, .toggle-leave-to
+/* .toggle-leave-active below version 2.1.8 */ {
+  transform: translateY(-50vh);
+  opacity: 0;
 }
 </style>

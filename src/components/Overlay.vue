@@ -2,12 +2,7 @@
   <div class="overlay-card">
     <div class="upper">
       <span class="text-subtitle">{{ name }}</span>
-      <ToggleButton
-        class="button"
-        @toggled="togglePower"
-        :active="powerModel"
-        size="3.5em"
-      />
+      <ToggleButton class="button" @toggled="togglePower" :active="powerModel" size="3.5em" />
     </div>
 
     <div class="picker">
@@ -36,9 +31,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ColorPicker from '../ColorPicker.vue';
-import ToggleButton from '../ToggleButton.vue';
-import Menu from '../Menu/Menu';
+import ColorPicker from './ColorPicker.vue';
+import ToggleButton from './ToggleButton.vue';
+import Menu from './Menu/Menu';
 
 export default {
   props: { bulb: Object, name: String, power: Boolean, rgb: Object },
@@ -48,7 +43,7 @@ export default {
       menuItems: ['Color', 'CT', 'Scenes', 'Back'],
       selectedMenuItem: 'Color',
       powerModel: this.power,
-      color: { r: 255, g: 0, b: 0 },
+      color: this.rgb,
       kelvin: '2000',
       length: 100,
     };
@@ -68,7 +63,7 @@ export default {
     },
     handleResize() {
       this.length =
-        document.getElementsByClassName('overlay-card')[0].offsetWidth / 2;
+        document.getElementsByClassName('overlay-card')[0].offsetWidth / 2.5;
     },
   },
   watch: {
@@ -82,7 +77,7 @@ export default {
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.length =
-      document.getElementsByClassName('overlay-card')[0].offsetWidth / 2;
+      document.getElementsByClassName('overlay-card')[0].offsetWidth / 2.5;
   },
 
   beforeDestroy() {

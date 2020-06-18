@@ -10,7 +10,9 @@
         v-for="(item, index) in devices"
         :key="index"
         @onEnter="change"
-        v-bind="item"
+        :bulb="item"
+        :name="item.name"
+        :power="item.power"
       />
     </div>
   </section>
