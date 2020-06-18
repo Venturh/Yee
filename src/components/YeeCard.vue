@@ -26,16 +26,9 @@
     <div
       class="color"
       :style="{
-        'background-color': `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
+        'background-color': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b})`,
       }"
-      @click="showOverlay = !showOverlay"
-    />
-    <CardOverLay
-      class="overlay"
-      @back="showOverlay = false"
-      :bulb="bulb"
-      :rgb="rgb"
-      v-if="showOverlay"
+      @click="$emit('action', { name, power, bright, rgb, bulb })"
     />
   </div>
 
@@ -57,23 +50,15 @@
       :style="{
         'background-color': `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
       }"
-      @click="showOverlay = !showOverlay"
+      @click="$emit('action', { name, power, bright, rgb, bulb })"
     />
     <span class="horiz-bright">Brightness: {{ bright }}%</span>
-    <CardOverLay
-      class="overlay"
-      @back="showOverlay = false"
-      :bulb="bulb"
-      :rgb="rgb"
-      v-if="showOverlay"
-    />
   </div>
 </template>
 
 <script>
 import _ from 'lodash';
 import ToggleButton from './ToggleButton.vue';
-import CardOverLay from './CardOverlay.vue';
 import RangeSlider from './RangeSlider.vue';
 
 export default {
@@ -90,7 +75,6 @@ export default {
   },
   components: {
     ToggleButton,
-    CardOverLay,
     RangeSlider,
   },
   data() {

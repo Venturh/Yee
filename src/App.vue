@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <Menu />
+    <Menu :menuItems="menuItems" logo="bulb" routed />
     <router-view />
   </div>
 </template>
@@ -11,6 +11,11 @@ export default {
   name: 'App',
   components: {
     Menu,
+  },
+  data() {
+    return {
+      menuItems: ['Dashboard', 'Rooms', 'Scenes', 'Settings'],
+    };
   },
   methods: {
     loadTheme() {

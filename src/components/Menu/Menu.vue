@@ -1,12 +1,12 @@
 <template>
   <div class="menu">
-    <div class="logo-wrapper">
-      <Logo />
+    <div v-if="logo" class="logo-wrapper">
+      <Icon :icon="logo" />
       <span>Yee</span>
     </div>
     <div class="upper">
       <MenuItem
-        v-for="(item, index) in menuitems"
+        v-for="(item, index) in menuItems"
         :key="index"
         :itemName="item"
         :currentRoute="currentRoute"
@@ -19,20 +19,26 @@
 
 <script>
 import MenuItem from './MenuItem.vue';
-import Logo from '@/assets/bulb.svg';
+import Icon from '../Icon';
+
 export default {
   name: 'Menu',
-  components: { MenuItem, Logo },
+  components: { MenuItem, Icon },
+  props: { menuItems: Array, routed: Boolean, logo: String },
   data() {
     return {
-      menuitems: ['Dashboard', 'Rooms', 'Scenes', 'Settings'],
-      currentRoute: this.$route.name,
+      currentRoute: this.routed ? this.$route.name : this.menuItems[0],
     };
   },
   methods: {
     setSelected(itemName) {
-      this.$router.push(itemName, () => {});
-      this.currentRoute = itemName;
+      if (this.routed) {
+        this.$router.push(itemName, () => {});
+        this.currentRoute = itemName;
+      } else {
+        this.$emit('select', itemName);
+        this.currentRoute = itemName;
+      }
     },
   },
 };
@@ -40,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .menu {
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
