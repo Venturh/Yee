@@ -14,7 +14,13 @@ export default {
   },
   data() {
     return {
-      menuItems: ['Dashboard', 'Rooms', 'Scenes', 'Settings'],
+      menuItems: [
+        'Dashboard',
+        'Devices',
+        'Rooms',
+        'Scenes',
+        'Settings',
+      ],
     };
   },
   methods: {

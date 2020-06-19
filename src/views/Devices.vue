@@ -1,6 +1,6 @@
 <template v-once>
   <section class="section">
-    <h1>Dashboard</h1>
+    <h1>Devices</h1>
     <div class="bulbs">
       <YeeCard
         v-for="(item, index) in devices"
