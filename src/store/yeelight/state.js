@@ -3,6 +3,7 @@ const state = {
   discovering: false,
   loadingName: false,
   devices: [],
+  rooms: [],
 };
 
 export default state;

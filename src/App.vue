@@ -6,7 +6,9 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
 import Menu from '@/components/Menu/Menu.vue';
+
 export default {
   name: 'App',
   components: {
@@ -23,7 +25,13 @@ export default {
       ],
     };
   },
+  computed: {
+    ...mapState('yeelight', {
+      discovering: state => state.discovering,
+    }),
+  },
   methods: {
+    ...mapActions('yeelight', ['discovery']),
     loadTheme() {
       let htmlElement = document.documentElement;
       let theme = localStorage.getItem('theme');
@@ -45,6 +53,7 @@ export default {
     },
   },
   created() {
+    this.discovering ? null : this.discovery();
     this.loadTheme();
   },
 };

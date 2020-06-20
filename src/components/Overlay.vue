@@ -2,7 +2,12 @@
   <div class="overlay-card">
     <div class="upper">
       <span class="text-subtitle">{{ name }}</span>
-      <ToggleButton class="button" @toggled="togglePower" :active="powerModel" size="3.5em" />
+      <ToggleButton
+        class="button"
+        @toggled="togglePower"
+        :active="powerModel"
+        size="3.5em"
+      />
     </div>
 
     <div class="picker">
@@ -36,20 +41,37 @@ import ToggleButton from './ToggleButton.vue';
 import Menu from './Menu/Menu';
 
 export default {
-  props: { bulb: Object, name: String, power: Boolean, rgb: Object },
+  props: { name: String, bulbs: Array },
   components: { ColorPicker, ToggleButton, Menu },
   data() {
     return {
       menuItems: ['Color', 'CT', 'Scenes', 'Back'],
       selectedMenuItem: 'Color',
-      powerModel: this.power,
-      color: this.rgb,
-      kelvin: '2000',
+      bulb: this.bulbs[0],
+      powerModel: this.bulbs[0].power,
       length: 100,
     };
   },
+  computed: {
+    kelvin: {
+      get: function() {
+        return '2000';
+      },
+      set: function(ct) {
+        this.setColorTemp({ bulbs: this.bulbs, ct: parseInt(ct) });
+      },
+    },
+    color: {
+      get: function() {
+        return this.bulbs[0].rgb;
+      },
+      set: function(color) {
+        this.setRgb({ bulbs: this.bulbs, rgb: color });
+      },
+    },
+  },
   methods: {
-    ...mapActions('yeelight', ['setColorTemp', 'setRgb']),
+    ...mapActions('yeelight', ['setColorTemp', 'setRgb', 'setPower']),
     menuSelected(item) {
       this.selectedMenuItem = '';
       if (item === 'Back') {
@@ -59,25 +81,27 @@ export default {
     },
     togglePower() {
       this.powerModel = !this.powerModel;
-      this.bulb.setPower(this.powerModel);
+      this.setPower({ bulbs: this.bulbs, power: this.powerModel });
     },
     handleResize() {
       this.length =
-        document.getElementsByClassName('overlay-card')[0].offsetWidth / 2.5;
+        document.getElementsByClassName('overlay-card')[0]
+          .offsetWidth / 2.5;
     },
   },
   watch: {
-    kelvin(ct) {
-      this.setColorTemp({ bulb: this.bulb, ct: parseInt(ct) });
-    },
+    // kelvin(ct) {
+    //   this.setColorTemp({ bulbs: this.bulbs, ct: parseInt(ct) });
+    // },
     color() {
-      this.setRgb({ bulb: this.bulb, rgb: this.color });
+      this.setRgb({ bulbs: this.bulbs, rgb: this.color });
     },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.length =
-      document.getElementsByClassName('overlay-card')[0].offsetWidth / 2.5;
+      document.getElementsByClassName('overlay-card')[0].offsetWidth /
+      2.5;
   },
 
   beforeDestroy() {
@@ -124,7 +148,8 @@ export default {
   height: 50vh;
   --width: var(--menuWidth);
   background: var(--body);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border-bottom-right-radius: 1em;
 }
 

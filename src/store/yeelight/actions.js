@@ -1,4 +1,6 @@
 import { Lookup } from 'node-yeelight-wifi';
+import _ from 'lodash';
+
 import { onChange } from '@/utils/bulbService';
 
 const actions = {
@@ -6,6 +8,7 @@ const actions = {
     state.discovering = true;
     let look = new Lookup();
     look.on('detected', device => {
+      state.devices.push(device);
       state.devices.push(device);
       dispatch('setListeners', device);
     });
@@ -16,39 +19,47 @@ const actions = {
       state.devices = onChange(state.devices, device);
     });
   },
-
-  setPower({ state }, { bulb, power }) {
+  setPower: _.debounce(function({ state }, { bulbs, power }) {
     state.loading = true;
-    bulb.setPower(!power);
+    bulbs.forEach(bulb => {
+      bulb.setPower(power);
+    });
     state.loading = false;
-  },
+  }, 200),
+
+  setBright: _.debounce(function({ state }, { bulbs, bright }) {
+    state.loading = true;
+    bulbs.forEach(bulb => {
+      bulb.setBright(bright, 300);
+    });
+    state.loading = false;
+  }, 200),
+
+  setColorTemp: _.debounce(function({ state }, { bulbs, ct }) {
+    state.loadingName = true;
+    bulbs.forEach(bulb => {
+      bulb.setCT(ct, 300);
+    });
+    state.loadingName = false;
+  }, 200),
+
+  setRgb: _.debounce(function({ state }, { bulbs, rgb }) {
+    state.loadingName = true;
+    bulbs.forEach(bulb => {
+      bulb.setRGB(rgb);
+    });
+
+    state.loadingName = false;
+  }, 200),
 
   async setName({ state }, { name, bulb }) {
     state.loadingName = true;
-    bulb.sendCommand('set_name', [name]).catch(() => console.log(state));
+    bulb
+      .sendCommand('set_name', [name])
+      .catch(() => console.log(state));
     setTimeout(() => {
       bulb.updateState();
     }, 1500);
-    state.loadingName = false;
-  },
-
-  async setColorTemp({ state }, { bulb, ct }) {
-    state.loadingName = true;
-    bulb.setCT(ct, 300);
-    state.loadingName = false;
-  },
-
-  async setRgb({ state }, { bulb, rgb }) {
-    const { r, g, b } = rgb;
-    state.loadingName = true;
-    bulb.setRGB([r, g, b]);
-    state.loadingName = false;
-  },
-
-  async setHsv({ state }, { bulb, hsv }) {
-    const { h, s, v } = hsv;
-    state.loadingName = true;
-    bulb.setHSV([h, s, v]);
     state.loadingName = false;
   },
 };

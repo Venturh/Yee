@@ -21,14 +21,14 @@
         :side="100"
         v-model="computedBright"
       ></circle-slider>
-      <span class="bright">{{ bright }}%</span>
+      <span class="bright">{{ brightness }}%</span>
     </div>
     <div
       class="color"
       :style="{
-        'background-color': `rgba(${rgb.r}, ${rgb.g}, ${rgb.b})`,
+        'background-color': `rgba(${bulb.rgb.r}, ${bulb.rgb.g}, ${bulb.rgb.b})`,
       }"
-      @click="$emit('action', { name, power, bright, rgb, bulb })"
+      @click="toggleOverlay"
     />
   </div>
 
@@ -48,30 +48,24 @@
     <div
       class="horiz-color"
       :style="{
-        'background-color': `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
+        'background-color': `rgb(${bulb.rgb.r}, ${bulb.rgb.g}, ${bulb.rgb.b})`,
       }"
-      @click="$emit('action', { name, power, bright, rgb, bulb })"
+      @click="toggleOverlay"
     />
-    <span class="horiz-bright">Brightness: {{ bright }}%</span>
+    <span class="horiz-bright">Brightness: {{ brightness }}%</span>
   </div>
 </template>
 
 <script>
-import _ from 'lodash';
+import { mapActions } from 'vuex';
 import ToggleButton from './ToggleButton.vue';
 import RangeSlider from './RangeSlider.vue';
 
 export default {
   name: 'YeeCard',
   props: {
-    name: {
-      type: String,
-      default: 'Device',
-    },
-    power: Boolean,
-    bright: Number,
-    rgb: Object,
-    bulb: Object,
+    name: String,
+    bulbs: Array,
   },
   components: {
     ToggleButton,
@@ -79,8 +73,9 @@ export default {
   },
   data() {
     return {
-      brightness: this.bright,
-      powers: this.power,
+      brightness: this.bulbs[0].bright,
+      powers: this.bulbs[0].power,
+      bulb: this.bulbs[0],
       showOverlay: false,
       cardStyle: localStorage.getItem('cardstyle'),
     };
@@ -88,7 +83,7 @@ export default {
   computed: {
     computedPower: {
       get: function() {
-        return this.powers;
+        return this.bulbs[0].power;
       },
       set: function(value) {
         this.powers = value;
@@ -96,24 +91,24 @@ export default {
     },
     computedBright: {
       get() {
-        return this.brightness;
+        return this.bulbs[0].bright;
       },
-      set: _.debounce(function(value) {
-        this.bulb.setBright(value, 300);
-      }, 200),
+      set: function(value) {
+        this.brightness = value;
+        this.setBright({ bulbs: this.bulbs, bright: value });
+      },
     },
   },
   methods: {
+    ...mapActions('yeelight', ['setPower', 'setBright']),
     toggle(value) {
-      this.bulb.setPower(value);
+      this.setPower({ bulbs: this.bulbs, power: value });
     },
-  },
-  watch: {
-    bright(value) {
-      this.brightness = value;
-    },
-    power(value) {
-      this.powers = value;
+    toggleOverlay() {
+      this.$emit('action', {
+        name,
+        bulbs: this.bulbs,
+      });
     },
   },
 };

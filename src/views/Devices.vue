@@ -2,34 +2,35 @@
   <section class="section">
     <h1>Devices</h1>
     <div class="bulbs">
-      <YeeCard
-        v-for="(item, index) in devices"
+      <Card
+        v-for="(device, index) in devices"
         :key="index"
-        :name="item.name"
-        :power="item.power"
-        :bright="item.bright"
-        :rgb="item.rgb"
-        :bulb="item"
+        :name="device.name"
+        :bulbs="[device]"
         @action="toggleOverlay"
       />
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <Overlay v-if="showOverlay" @toggle="toggleOverlay" v-bind="selected" />
+        <Overlay
+          v-if="showOverlay"
+          @toggle="toggleOverlay"
+          v-bind="selected"
+        />
       </transition>
     </div>
   </section>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState } from 'vuex';
 
-import YeeCard from '@/components/YeeCard.vue';
+import Card from '@/components/Card.vue';
 import Overlay from '@/components/Overlay.vue';
 
 export default {
   name: 'Home',
-  components: { YeeCard, Overlay },
+  components: { Card, Overlay },
   data() {
     return { showOverlay: false, selected: {} };
   },
@@ -37,18 +38,13 @@ export default {
     ...mapState('yeelight', {
       devices: state => state.devices,
       loading: state => state.loading,
-      discovering: state => state.discovering,
     }),
   },
   methods: {
-    ...mapActions('yeelight', ['discovery']),
     toggleOverlay(item) {
       this.selected = item;
       this.showOverlay = !this.showOverlay;
     },
-  },
-  created() {
-    this.discovering ? null : this.discovery();
   },
 };
 </script>
@@ -74,8 +70,8 @@ export default {
 .toggle-leave-active {
   transition: all 0.5s ease;
 }
-.toggle-enter, .toggle-leave-to
-/* .toggle-leave-active below version 2.1.8 */ {
+.toggle-enter,
+.toggle-leave-to {
   transform: translateY(-50vh);
   opacity: 0;
 }
