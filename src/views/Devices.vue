@@ -1,7 +1,7 @@
 <template v-once>
   <section class="section">
     <h1>Devices</h1>
-    <div class="bulbs">
+    <div class="cards">
       <Card
         v-for="(device, index) in devices"
         :key="index"
@@ -12,7 +12,7 @@
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <Overlay
+        <CardOverlay
           v-if="showOverlay"
           @toggle="toggleOverlay"
           v-bind="selected"
@@ -26,11 +26,11 @@
 import { mapState } from 'vuex';
 
 import Card from '@/components/Card.vue';
-import Overlay from '@/components/Overlay.vue';
+import CardOverlay from '@/components/CardOverlay.vue';
 
 export default {
   name: 'Home',
-  components: { Card, Overlay },
+  components: { Card, CardOverlay },
   data() {
     return { showOverlay: false, selected: {} };
   },
@@ -50,7 +50,7 @@ export default {
 </script>
 
 <style lang="scss">
-.bulbs {
+.cards {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
   grid-auto-rows: minmax(10em, 1fr);

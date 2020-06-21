@@ -1,5 +1,9 @@
 <template>
-  <button @click="$emit('action')" class="button" :style="{ '--size': size }">
+  <button
+    @click="$emit('action')"
+    class="button"
+    :style="{ '--size': size }"
+  >
     <Icon class="icon" :icon="icon" />
   </button>
 </template>
@@ -27,13 +31,13 @@ export default {
   border-radius: 100%;
   display: flex;
   justify-content: center;
-  height: var(--size);
-  width: var(--size);
+  height: calc(var(--size) * 2);
+  width: calc(var(--size) * 2);
   cursor: pointer;
 }
 
 .icon {
   fill: var(--primary);
-  height: calc(var(--size) / 2);
+  height: var(--size);
 }
 </style>

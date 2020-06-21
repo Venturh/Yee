@@ -9,7 +9,13 @@ const actions = {
     let look = new Lookup();
     look.on('detected', device => {
       state.devices.push(device);
+      // state.rooms.push({
+      //   name: 'Heeßen',
+      //   devices: [device, device],
+      // });
+      //       console.log('discovery ->  state.rooms', state.rooms);
       state.devices.push(device);
+
       dispatch('setListeners', device);
     });
   },
@@ -61,6 +67,34 @@ const actions = {
       bulb.updateState();
     }, 1500);
     state.loadingName = false;
+  },
+
+  // searchForRoom({ state }, discoveredDevice) {
+  //   //Im Discovery nach Device suchen und dann wieder zum raum hinzufügen wenns passt. Anders geht nicht weil YeeLight Contsructor Port Error hat
+  //   let json = localStorage.getItem('rooms');
+  //   if (json) {
+  //     const rooms = JSON.parse(json);
+  //     rooms.forEach(room => {
+  //       let devices = [];
+  //       let name = room.name;
+  //       room.devices.forEach(device => {
+  //         if (device.id === discoveredDevice.id) {
+  //           console.log(
+  //             'searchForRoom -> discoveredDevice.id',
+  //             discoveredDevice.id
+  //           );
+  //           console.log('searchForRoom -> device.id', device.id);
+  //           devices.push()
+  //         }
+  //       });
+  //     });
+  //   }
+  // },
+
+  addRoom({ state }, newRoom) {
+    console.log('addRoom -> newRoom', newRoom);
+    state.rooms.push(newRoom);
+    localStorage.setItem('rooms', JSON.stringify(state.rooms));
   },
 };
 

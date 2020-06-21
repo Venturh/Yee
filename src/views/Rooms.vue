@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="section">
     <h1>Rooms</h1>
     <div class="cards">
       <Card
@@ -7,24 +7,76 @@
         :key="index"
         :name="room.name"
         :bulbs="room.devices"
-        v-bind="room"
+        @action="toggleCardOverlay"
       />
+      <AddCard @add="toggleAddRoomOverlay" />
+    </div>
+    <div class="overlay">
+      <transition name="toggle">
+        <CardOverlay
+          v-if="showOverlay"
+          @toggle="toggleCardOverlay"
+          v-bind="selected"
+        />
+      </transition>
+    </div>
+    <div class="add-room-overlay">
+      <transition name="toggle">
+        <AddRoomOverlay
+          v-if="showAddRoomOverlay"
+          :devices="devices"
+          @toggleAddRoomOverlay="toggleAddRoomOverlay"
+          @addRoom="addNewRoom"
+        />
+      </transition>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import Card from '@/components/Card.vue';
+import { mapState, mapActions } from 'vuex';
 
+import Card from '@/components/Card.vue';
+import AddCard from '@/components/AddCard.vue';
+import CardOverlay from '@/components/CardOverlay.vue';
+import AddRoomOverlay from '@/components/AddRoomOverlay.vue';
 export default {
-  components: { Card },
+  components: { Card, AddCard, CardOverlay, AddRoomOverlay },
   computed: {
     ...mapState('yeelight', {
       rooms: state => state.rooms,
+      devices: state => state.devices,
     }),
+  },
+  methods: {
+    ...mapActions('yeelight', ['addRoom']),
+    toggleCardOverlay(item) {
+      this.selected = item;
+      this.showOverlay = !this.showOverlay;
+    },
+    toggleAddRoomOverlay() {
+      this.showAddRoomOverlay = !this.showAddRoomOverlay;
+    },
+    addNewRoom({ name, devices }) {
+      console.log('addNewRoom -> name, devices', name, devices);
+      this.addRoom({ name, devices });
+    },
+  },
+  data() {
+    return {
+      showOverlay: false,
+      selected: {},
+      showAddRoomOverlay: false,
+    };
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+.add-room-overlay {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+}
+</style>
