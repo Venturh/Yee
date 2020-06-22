@@ -12,11 +12,7 @@
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <CardOverlay
-          v-if="showOverlay"
-          @toggle="toggleOverlay"
-          v-bind="selected"
-        />
+        <CardOverlay v-if="showOverlay" @toggle="toggleOverlay" v-bind="selected" />
       </transition>
     </div>
   </section>
@@ -26,7 +22,7 @@
 import { mapState } from 'vuex';
 
 import Card from '@/components/Card.vue';
-import CardOverlay from '@/components/CardOverlay.vue';
+import CardOverlay from '@/components/overlays/CardOverlay.vue';
 
 export default {
   name: 'Home',

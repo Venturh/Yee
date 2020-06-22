@@ -1,16 +1,11 @@
 <template>
   <div class="add-card">
-    <IconButton
-      class="icon"
-      icon="add"
-      @action="$emit('add')"
-      size="3em"
-    />
+    <IconButton class="icon" icon="add" @action="$emit('add')" size="3em" />
   </div>
 </template>
 
 <script>
-import IconButton from '@/components/IconButton.vue';
+import IconButton from '@/components/base/IconButton.vue';
 export default {
   components: { IconButton },
 };

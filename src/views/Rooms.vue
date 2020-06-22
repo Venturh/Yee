@@ -13,11 +13,7 @@
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <CardOverlay
-          v-if="showOverlay"
-          @toggle="toggleCardOverlay"
-          v-bind="selected"
-        />
+        <CardOverlay v-if="showOverlay" @toggle="toggleCardOverlay" v-bind="selected" />
       </transition>
     </div>
     <div class="add-room-overlay">
@@ -38,8 +34,8 @@ import { mapState, mapActions } from 'vuex';
 
 import Card from '@/components/Card.vue';
 import AddCard from '@/components/AddCard.vue';
-import CardOverlay from '@/components/CardOverlay.vue';
-import AddRoomOverlay from '@/components/AddRoomOverlay.vue';
+import CardOverlay from '@/components/overlays/CardOverlay.vue';
+import AddRoomOverlay from '@/components/overlays/RoomOverlay.vue';
 export default {
   components: { Card, AddCard, CardOverlay, AddRoomOverlay },
   computed: {

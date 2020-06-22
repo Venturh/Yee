@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Icon from '../Icon';
+import Icon from '@/components/base/Icon.vue';
 export default {
   name: 'MenuItem',
   props: { itemName: String, currentRoute: String },

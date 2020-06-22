@@ -2,12 +2,7 @@
   <div class="overlay-card">
     <div class="upper">
       <span class="text-subtitle">{{ name }}</span>
-      <ToggleButton
-        class="button"
-        @toggled="togglePower"
-        :active="powerModel"
-        size="3.5em"
-      />
+      <ToggleButton class="button" @toggled="togglePower" :active="powerModel" size="3.5em" />
     </div>
 
     <div class="picker">
@@ -36,9 +31,9 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ColorPicker from './ColorPicker.vue';
-import ToggleButton from './ToggleButton.vue';
-import Menu from './Menu/Menu';
+import ColorPicker from '@/components/ColorPicker.vue';
+import ToggleButton from '@/components/base/ToggleButton.vue';
+import Menu from '@/components/menu/Menu.vue';
 
 export default {
   props: { name: String, bulbs: Array },

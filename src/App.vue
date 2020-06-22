@@ -7,7 +7,7 @@
 
 <script>
 import { mapState, mapActions } from 'vuex';
-import Menu from '@/components/Menu/Menu.vue';
+import Menu from '@/components/menu/Menu.vue';
 
 export default {
   name: 'App',

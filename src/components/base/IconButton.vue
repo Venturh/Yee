@@ -1,15 +1,11 @@
 <template>
-  <button
-    @click="$emit('action')"
-    class="button"
-    :style="{ '--size': size }"
-  >
+  <button @click="$emit('action')" class="button" :style="{ '--size': size }">
     <Icon class="icon" :icon="icon" />
   </button>
 </template>
 
 <script>
-import Icon from './Icon';
+import Icon from '@/components/base/Icon.vue';
 export default {
   name: 'IconButton',
   props: {

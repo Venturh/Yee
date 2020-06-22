@@ -1,35 +1,19 @@
 <template>
   <div class="card">
-    <div
-      v-for="(device, index) in devices"
-      :key="index"
-      class="items"
-    >
-      <CheckButton
-        icon="check"
-        :toCheck="device"
-        @check="toggleDevice"
-      />
+    <div v-for="(device, index) in devices" :key="index" class="items">
+      <CheckButton icon="check" :toCheck="device" @check="toggleDevice" />
       <span>{{ device.name }}</span>
     </div>
     <div class="buttons">
-      <IconButton
-        icon="back"
-        size="2em"
-        @action="$emit('toggleAddRoomOverlay')"
-      />
-      <IconButton
-        icon="add"
-        size="2em"
-        @action="$emit('addRoom', { name: name, devices: toAdd })"
-      />
+      <IconButton icon="back" size="2em" @action="$emit('toggleAddRoomOverlay')" />
+      <IconButton icon="add" size="2em" @action="$emit('addRoom', { name: name, devices: toAdd })" />
     </div>
   </div>
 </template>
 
 <script>
-import CheckButton from '@/components/CheckButton.vue';
-import IconButton from '@/components/IconButton.vue';
+import CheckButton from '@/components/base/CheckButton.vue';
+import IconButton from '@/components/base/IconButton.vue';
 
 export default {
   props: { devices: Array },

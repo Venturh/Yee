@@ -19,7 +19,7 @@
 
 <script>
 import MenuItem from './MenuItem.vue';
-import Icon from '../Icon';
+import Icon from '@/components/base/Icon.vue';
 
 export default {
   name: 'Menu',
@@ -27,7 +27,9 @@ export default {
   props: { menuItems: Array, routed: Boolean, logo: String },
   data() {
     return {
-      currentRoute: this.routed ? this.$route.name : this.menuItems[0],
+      currentRoute: this.routed
+        ? this.$route.name
+        : this.menuItems[0],
     };
   },
   methods: {

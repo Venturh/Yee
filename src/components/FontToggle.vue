@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Icon from '@/components/Icon';
+import Icon from '@/components/base/Icon.vue';
 export default {
   name: 'FontToggle',
   props: {

@@ -13,7 +13,7 @@ export default {
   },
   computed: {
     dynamicIcon() {
-      return () => import(`../assets/${this.icon}.svg`);
+      return () => import(`@/assets/${this.icon}.svg`);
     },
   },
 };

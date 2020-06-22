@@ -1,11 +1,7 @@
 <template>
   <div class="item">
     <div class="name-wrapper">
-      <IconButton
-        icon="edit"
-        size="2em"
-        @action="disabledName = !disabledName"
-      />
+      <IconButton icon="edit" size="2em" @action="disabledName = !disabledName" />
       <input
         class="name-input"
         :class="{ 'name-input-active': disabledName === false }"
@@ -18,7 +14,7 @@
 </template>
 
 <script>
-import IconButton from './IconButton.vue';
+import IconButton from '@/components/base/IconButton.vue';
 export default {
   name: 'YeeItem',
   components: { IconButton },

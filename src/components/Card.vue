@@ -2,12 +2,7 @@
   <div v-if="cardStyle == 0" class="card">
     <div class="top">
       <span>{{ name }}</span>
-      <ToggleButton
-        class="button"
-        @toggled="toggle"
-        :active="computedPower"
-        size="2.5em"
-      />
+      <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
     </div>
     <div class="slider">
       <circle-slider
@@ -35,12 +30,7 @@
   <div v-else class="card">
     <div class="horiz-top">
       <span>{{ name }}</span>
-      <ToggleButton
-        class="button"
-        @toggled="toggle"
-        :active="computedPower"
-        size="2.5em"
-      />
+      <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
     </div>
 
     <RangeSlider class="horiz-slider" v-model="computedBright" />
@@ -58,8 +48,8 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ToggleButton from './ToggleButton.vue';
-import RangeSlider from './RangeSlider.vue';
+import ToggleButton from '@/components/base/ToggleButton.vue';
+import RangeSlider from '@/components/base/RangeSlider.vue';
 
 export default {
   name: 'YeeCard',
