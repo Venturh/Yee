@@ -1,39 +1,51 @@
 <template>
   <div class="card">
+    <Input @action="renameRoom" :placeholder="roomName" :propDisabled="false" />
     <div v-for="(device, index) in devices" :key="index" class="items">
       <CheckButton icon="check" :toCheck="device" @check="toggleDevice" />
       <span>{{ device.name }}</span>
     </div>
     <div class="buttons">
-      <IconButton icon="back" size="2em" @action="$emit('toggleAddRoomOverlay')" />
-      <IconButton icon="add" size="2em" @action="$emit('addRoom', { name: name, devices: toAdd })" />
+      <IconButton
+        icon="back"
+        size="2em"
+        @action="$emit('toggleAddRoomOverlay')"
+      />
+      <IconButton
+        icon="add"
+        size="2em"
+        @action="$emit('addRoom', { name: roomName, devices: toAdd })"
+      />
     </div>
   </div>
 </template>
 
 <script>
+import Input from '@/components/base/Input.vue';
 import CheckButton from '@/components/base/CheckButton.vue';
 import IconButton from '@/components/base/IconButton.vue';
 
 export default {
   props: { devices: Array },
-  components: { CheckButton, IconButton },
+  components: { Input, CheckButton, IconButton },
   data() {
     return {
       toAdd: [],
-      name: 'Test',
+      roomName: 'New Room',
     };
   },
   methods: {
     toggleDevice({ device, value }) {
-      console.log('toggleDevice -> device, value', device, value);
       if (value === true) {
         this.toAdd.push(device);
       } else {
         const toDelete = this.toAdd.findIndex(e => e.id == device.id);
         this.toAdd.splice(toDelete, 1);
       }
-      console.log('toAdd:', this.toAdd);
+    },
+    renameRoom(name) {
+      console.log('renameRoom -> name', name);
+      this.roomName = name;
     },
   },
 };

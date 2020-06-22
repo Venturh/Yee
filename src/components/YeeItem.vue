@@ -1,38 +1,23 @@
 <template>
   <div class="item">
-    <div class="name-wrapper">
-      <IconButton icon="edit" size="2em" @action="disabledName = !disabledName" />
-      <input
-        class="name-input"
-        :class="{ 'name-input-active': disabledName === false }"
-        v-on:keyup.enter="onEnter"
-        v-model="names"
-        :disabled="disabledName"
-      />
-    </div>
+    <Input @action="changeName" :placeholder="name" />
   </div>
 </template>
 
 <script>
-import IconButton from '@/components/base/IconButton.vue';
+import Input from '@/components/base/Input.vue';
+
 export default {
   name: 'YeeItem',
-  components: { IconButton },
+  components: { Input },
   props: {
     bulb: Object,
     name: String,
     power: Boolean,
   },
-  data() {
-    return {
-      names: this.name,
-      disabledName: true,
-    };
-  },
   methods: {
-    onEnter() {
-      this.disabledName = true;
-      this.$emit('onEnter', { bulb: this.bulb, name: this.names });
+    changeName(newName) {
+      this.$emit('changeName', { bulb: this.bulb, name: newName });
     },
   },
 };

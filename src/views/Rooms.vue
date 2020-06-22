@@ -5,6 +5,7 @@
       <Card
         v-for="(room, index) in rooms"
         :key="index"
+        type="Room"
         :name="room.name"
         :bulbs="room.devices"
         @action="toggleCardOverlay"
@@ -13,12 +14,16 @@
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <CardOverlay v-if="showOverlay" @toggle="toggleCardOverlay" v-bind="selected" />
+        <CardOverlay
+          v-if="showOverlay"
+          @toggle="toggleCardOverlay"
+          v-bind="selected"
+        />
       </transition>
     </div>
     <div class="add-room-overlay">
       <transition name="toggle">
-        <AddRoomOverlay
+        <RoomOverlay
           v-if="showAddRoomOverlay"
           :devices="devices"
           @toggleAddRoomOverlay="toggleAddRoomOverlay"
@@ -35,9 +40,9 @@ import { mapState, mapActions } from 'vuex';
 import Card from '@/components/Card.vue';
 import AddCard from '@/components/AddCard.vue';
 import CardOverlay from '@/components/overlays/CardOverlay.vue';
-import AddRoomOverlay from '@/components/overlays/RoomOverlay.vue';
+import RoomOverlay from '@/components/overlays/RoomOverlay.vue';
 export default {
-  components: { Card, AddCard, CardOverlay, AddRoomOverlay },
+  components: { Card, AddCard, CardOverlay, RoomOverlay },
   computed: {
     ...mapState('yeelight', {
       rooms: state => state.rooms,

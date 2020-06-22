@@ -9,7 +9,7 @@
       <YeeItem
         v-for="(item, index) in devices"
         :key="index"
-        @onEnter="change"
+        @changeName="change"
         :bulb="item"
         :name="item.name"
         :power="item.power"
