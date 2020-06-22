@@ -32,15 +32,6 @@ export default {
     sliderShape: Boolean,
     sliderDirection: { type: String, default: 'horizontal' },
 
-    handleOrigin: {
-      type: Object,
-      default() {
-        return {
-          x: 0,
-          y: 0,
-        };
-      },
-    },
     css: {
       type: Object,
       default: () => {},

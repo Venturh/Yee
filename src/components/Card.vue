@@ -1,36 +1,43 @@
 <template>
   <div v-if="cardStyle == 0" class="card">
-    <div class="top">
-      <span>{{ name }}</span>
-      <ToggleButton
-        class="button"
-        @toggled="toggle"
-        :active="computedPower"
-        size="2.5em"
-      />
+    <div class="content">
+      <div class="top">
+        <span>{{ name }}</span>
+        <ToggleButton
+          class="button"
+          @toggled="toggle"
+          :active="computedPower"
+          size="2.5em"
+        />
+      </div>
+      <div class="slider">
+        <circle-slider
+          :stepSize="5"
+          circleColor="#1e2124"
+          progressColor="var(--primary)"
+          knobColor="var(--primary)"
+          :circle-width="8"
+          :progress-width="8"
+          :knob-radius="6"
+          :side="100"
+          v-model="computedBright"
+        />
+        <span class="bright">{{ brightness }}%</span>
+      </div>
+      <div
+        class="control"
+        :style="{ 'flex-direction': type === 'Room' ? 'row' : 'row-reverse' }"
+      >
+        <IconButton v-if="type === 'Room'" icon="settings" size="1.5em" />
+        <div
+          class="color"
+          :style="{
+            'background-color': `rgba(${bulb.rgb.r}, ${bulb.rgb.g}, ${bulb.rgb.b})`,
+          }"
+          @click="toggleOverlay"
+        />
+      </div>
     </div>
-    <div class="slider">
-      <circle-slider
-        :stepSize="5"
-        circleColor="#1e2124"
-        progressColor="var(--primary)"
-        knobColor="var(--primary)"
-        :circle-width="8"
-        :progress-width="8"
-        :knob-radius="6"
-        :side="100"
-        v-model="computedBright"
-      ></circle-slider>
-      <span class="bright">{{ brightness }}%</span>
-    </div>
-    <div
-      class="color"
-      :style="{
-        'background-color': `rgba(${bulb.rgb.r}, ${bulb.rgb.g}, ${bulb.rgb.b})`,
-      }"
-      @click="toggleOverlay"
-    />
-    <IconButton v-if="type === 'Room'" icon="settings" />
   </div>
 
   <div v-else class="card">
@@ -110,7 +117,7 @@ export default {
     },
     toggleOverlay() {
       this.$emit('action', {
-        name,
+        name: this.name,
         bulbs: this.bulbs,
       });
     },
@@ -119,25 +126,27 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.cards {
-  position: relative;
-}
-
 .card {
   position: relative;
   background: var(--item);
   border-radius: 25px;
 }
 
+.content {
+  margin: 1em 1em;
+}
+
 .top {
-  margin: 1em 0.5em 0em 0.75em;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .slider {
-  position: relative;
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,10 +159,16 @@ export default {
   transform: translateY(-50%);
 }
 
-.color {
+.control {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: absolute;
-  right: 1em;
-  bottom: 1em;
+  bottom: 0.5em;
+}
+
+.color {
   width: 1.25em;
   height: 1.25em;
   border-radius: 100%;

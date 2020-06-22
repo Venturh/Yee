@@ -2,7 +2,12 @@
   <div class="overlay-card">
     <div class="upper">
       <span class="text-subtitle">{{ name }}</span>
-      <ToggleButton class="button" @toggled="togglePower" :active="powerModel" size="3.5em" />
+      <ToggleButton
+        class="button"
+        @toggled="togglePower"
+        :active="powerModel"
+        size="3.5em"
+      />
     </div>
 
     <div class="picker">
@@ -80,23 +85,13 @@ export default {
     },
     handleResize() {
       this.length =
-        document.getElementsByClassName('overlay-card')[0]
-          .offsetWidth / 2.5;
-    },
-  },
-  watch: {
-    // kelvin(ct) {
-    //   this.setColorTemp({ bulbs: this.bulbs, ct: parseInt(ct) });
-    // },
-    color() {
-      this.setRgb({ bulbs: this.bulbs, rgb: this.color });
+        document.getElementsByClassName('overlay-card')[0].offsetWidth / 2.5;
     },
   },
   mounted() {
     window.addEventListener('resize', this.handleResize);
     this.length =
-      document.getElementsByClassName('overlay-card')[0].offsetWidth /
-      2.5;
+      document.getElementsByClassName('overlay-card')[0].offsetWidth / 2.5;
   },
 
   beforeDestroy() {
@@ -143,8 +138,7 @@ export default {
   height: 50vh;
   --width: var(--menuWidth);
   background: var(--body);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1),
-    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border-bottom-right-radius: 1em;
 }
 

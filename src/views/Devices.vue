@@ -12,7 +12,11 @@
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <CardOverlay v-if="showOverlay" @toggle="toggleOverlay" v-bind="selected" />
+        <CardOverlay
+          v-if="showOverlay"
+          @toggle="toggleOverlay"
+          v-bind="selected"
+        />
       </transition>
     </div>
   </section>

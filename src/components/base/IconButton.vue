@@ -1,7 +1,10 @@
 <template>
-  <button @click="$emit('action')" class="button" :style="{ '--size': size }">
-    <Icon class="icon" :icon="icon" />
-  </button>
+  <Icon
+    class="icon"
+    :icon="icon"
+    @action="$emit('action')"
+    :style="{ '--size': size }"
+  />
 </template>
 
 <script>
@@ -35,5 +38,6 @@ export default {
 .icon {
   fill: var(--primary);
   height: var(--size);
+  cursor: pointer;
 }
 </style>
