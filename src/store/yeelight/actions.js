@@ -9,13 +9,14 @@ const actions = {
     let look = new Lookup();
     look.on('detected', device => {
       state.devices.push(device);
-      // state.rooms.push({
-      //   name: 'Heeßen',
-      //   devices: [device, device],
-      // });
-      //       console.log('discovery ->  state.rooms', state.rooms);
-      dispatch('searchForRoom', device);
       state.devices.push(device);
+      state.devices.push(device);
+      state.devices.push(device);
+      state.devices.push(device);
+      state.devices.push(device);
+      state.devices.push(device);
+      state.devices.push(device);
+      dispatch('searchForRoom', device);
 
       dispatch('setListeners', device);
     });
@@ -61,9 +62,7 @@ const actions = {
 
   async setName({ state }, { name, bulb }) {
     state.loadingName = true;
-    bulb
-      .sendCommand('set_name', [name])
-      .catch(() => console.log(state));
+    bulb.sendCommand('set_name', [name]).catch(() => console.log(state));
     setTimeout(() => {
       bulb.updateState();
     }, 1500);
@@ -90,7 +89,6 @@ const actions = {
 
   addRoom({ state }, newRoom) {
     const { name, devices } = newRoom;
-    console.log('addRoom -> name, devices', name, devices);
     const room = { name: name, devices: [] };
     devices.forEach(device => {
       room['devices'].push(device);

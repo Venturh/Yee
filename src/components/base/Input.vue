@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper">
-    <IconButton icon="edit" size="2em" @action="disabled = !disabled" />
+    <IconButton
+      v-show="showIcon"
+      icon="edit"
+      size="2em"
+      @action="disabled = !disabled"
+    />
     <input
       class="name-input"
       :class="{ 'name-input-active': disabled === false }"
@@ -16,6 +21,7 @@
 import IconButton from '@/components/base/IconButton';
 export default {
   props: {
+    showIcon: { type: Boolean, default: true },
     placeholder: String,
     propDisabled: { type: Boolean, default: true },
   },
@@ -34,18 +40,23 @@ export default {
       this.$emit('action', this.input);
     },
   },
+  watch: {
+    input() {
+      this.$emit('action', this.input);
+    },
+  },
 };
 </script>
 
 <style langs="scss" scoped>
 .wrapper {
+  width: 50%;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .name-input {
-  width: 50%;
+  width: 80%;
   border: none;
   outline: none;
   color: var(--itemContrast);

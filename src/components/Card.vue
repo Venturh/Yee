@@ -12,7 +12,8 @@
       </div>
       <div class="slider">
         <circle-slider
-          :stepSize="5"
+          :min="1"
+          :stepSize="1"
           circleColor="#1e2124"
           progressColor="var(--primary)"
           knobColor="var(--primary)"

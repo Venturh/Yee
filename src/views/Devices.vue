@@ -54,7 +54,7 @@ export default {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
   grid-auto-rows: minmax(10em, 1fr);
-  gap: 4em;
+  gap: 1em;
 }
 
 .overlay {
