@@ -3,12 +3,7 @@
     <div class="content">
       <div class="top">
         <span>{{ name }}</span>
-        <ToggleButton
-          class="button"
-          @toggled="toggle"
-          :active="computedPower"
-          size="2.5em"
-        />
+        <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
       </div>
       <div class="slider">
         <circle-slider
@@ -25,10 +20,7 @@
         />
         <span class="bright">{{ brightness }}%</span>
       </div>
-      <div
-        class="control"
-        :style="{ 'flex-direction': type === 'Room' ? 'row' : 'row-reverse' }"
-      >
+      <div class="control" :style="{ 'flex-direction': type === 'Room' ? 'row' : 'row-reverse' }">
         <IconButton v-if="type === 'Room'" icon="settings" size="1.5em" />
         <div
           class="color"
@@ -44,12 +36,7 @@
   <div v-else class="card">
     <div class="horiz-top">
       <span>{{ name }}</span>
-      <ToggleButton
-        class="button"
-        @toggled="toggle"
-        :active="computedPower"
-        size="2.5em"
-      />
+      <ToggleButton class="button" @toggled="toggle" :active="computedPower" size="2.5em" />
     </div>
 
     <RangeSlider class="horiz-slider" v-model="computedBright" />
@@ -86,7 +73,7 @@ export default {
   data() {
     return {
       brightness: this.bulbs[0].bright,
-      powers: this.bulbs[0].power,
+      powers: this.computedPower,
       bulb: this.bulbs[0],
       showOverlay: false,
       cardStyle: localStorage.getItem('cardstyle'),
@@ -95,7 +82,13 @@ export default {
   computed: {
     computedPower: {
       get: function() {
-        return this.bulbs[0].power;
+        //check if any device is powered
+        let powers = 0;
+        this.bulbs.forEach(bulb => {
+          if (bulb.power) powers += 1;
+        });
+        if (powers) return true;
+        else return false;
       },
       set: function(value) {
         this.powers = value;

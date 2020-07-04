@@ -9,16 +9,8 @@ const actions = {
     let look = new Lookup();
     look.on('detected', device => {
       state.devices.push(device);
-      state.devices.push(device);
-      state.devices.push(device);
-      state.devices.push(device);
-      state.devices.push(device);
-      state.devices.push(device);
-      state.devices.push(device);
-      state.devices.push(device);
-      dispatch('searchForRoom', device);
-
       dispatch('setListeners', device);
+      dispatch('searchForRoom', device);
     });
   },
 
@@ -76,6 +68,24 @@ const actions = {
       const rooms = JSON.parse(json);
       rooms.forEach(room => {
         const name = room.name;
+
+        //check if room exists
+        const find = state.rooms.findIndex(
+          savedRoom => savedRoom.name === name
+        );
+        if (find >= 0) {
+          room.devices.forEach(device => {
+            if (device.id === discoveredDevice.id) {
+              state.rooms[find]['devices'] = [
+                ...state.rooms[find]['devices'],
+                discoveredDevice,
+              ];
+            }
+          });
+          return;
+        }
+
+        //if room doesnt exist create new room
         const newRoom = { name: name, devices: [] };
         room.devices.forEach(device => {
           if (device.id === discoveredDevice.id) {
