@@ -12,11 +12,7 @@
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <CardOverlay
-          v-if="showOverlay"
-          @toggle="toggleOverlay"
-          v-bind="selected"
-        />
+        <CardOverlay v-if="showOverlay" @toggle="toggleOverlay" v-bind="selected" />
       </transition>
     </div>
   </section>
@@ -52,8 +48,8 @@ export default {
 <style lang="scss">
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(10em, 1fr));
-  grid-auto-rows: minmax(10em, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(15em, 1fr));
+  grid-auto-rows: minmax(7em, 1fr);
   gap: 1em;
 }
 

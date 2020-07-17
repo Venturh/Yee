@@ -49,8 +49,8 @@
 }
 
 [fontSize='medium'] {
-  --fontSize: 20px;
-  --mediumFontSize: 16px;
+  --fontSize: 22px;
+  --mediumFontSize: 14px;
 }
 
 [fontSize='small'] {
@@ -70,6 +70,9 @@ html {
 
   @include md {
     font-size: var(--mediumFontSize);
+  }
+  @include sm {
+    font-size: 8px;
   }
 }
 

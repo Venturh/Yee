@@ -1,18 +1,17 @@
 <template>
-  <div class="wrapper">
-    <input
-      class="test"
-      type="range"
-      v-model="model"
-      @input="$emit('input', parseInt($event.target.value))"
-    />
-  </div>
+  <input
+    :style="{ '--size': size }"
+    type="range"
+    v-model="model"
+    @input="$emit('input', parseInt($event.target.value))"
+  />
 </template>
 <script>
 export default {
   name: 'RangeSlider',
   props: {
     bright: Number,
+    size: { type: String, default: '1em' },
   },
   data() {
     return { model: this.bright };
@@ -21,33 +20,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
-}
-
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
-  outline: transparent;
-  transform: rotate(270deg);
-  transform-origin: left;
   overflow: hidden;
-
-  height: 1em;
+  height: var(--size);
+  width: 80%;
   background: var(--body);
-
-  border-radius: 20px;
+  border-radius: 1em;
   overflow: hidden;
 }
 
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 1.1em;
-  height: 1.1em;
-
+  width: var(--size);
+  height: var(--size);
   background: var(--primary);
   border-left: 0.05em solid black;
-  border-radius: 20px;
-  box-shadow: -800px 0 0 790px var(--primary);
+  border-radius: 1em;
+  box-shadow: calc(var(--size) * -10) 0 0 calc(var(--size) * 9.5) var(--primary);
   cursor: pointer;
 }
 </style>
