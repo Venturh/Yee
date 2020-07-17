@@ -10,7 +10,7 @@ const actions = {
     look.on('detected', device => {
       state.devices.push(device);
       dispatch('setListeners', device);
-      dispatch('searchForRoom', device);
+      dispatch('rooms/searchForRoom', device, { root: true });
     });
   },
 
@@ -59,52 +59,6 @@ const actions = {
       bulb.updateState();
     }, 1500);
     state.loadingName = false;
-  },
-
-  searchForRoom({ state }, discoveredDevice) {
-    state.loadingName = true;
-    let json = localStorage.getItem('rooms');
-    if (json) {
-      const rooms = JSON.parse(json);
-      rooms.forEach(room => {
-        const name = room.name;
-
-        //check if room exists
-        const find = state.rooms.findIndex(
-          savedRoom => savedRoom.name === name
-        );
-        if (find >= 0) {
-          room.devices.forEach(device => {
-            if (device.id === discoveredDevice.id) {
-              state.rooms[find]['devices'] = [
-                ...state.rooms[find]['devices'],
-                discoveredDevice,
-              ];
-            }
-          });
-          return;
-        }
-
-        //if room doesnt exist create new room
-        const newRoom = { name: name, devices: [] };
-        room.devices.forEach(device => {
-          if (device.id === discoveredDevice.id) {
-            newRoom['devices'].push(discoveredDevice);
-          }
-        });
-        if (newRoom.devices.length > 0) state.rooms.push(newRoom);
-      });
-    }
-  },
-
-  addRoom({ state }, newRoom) {
-    const { name, devices } = newRoom;
-    const room = { name: name, devices: [] };
-    devices.forEach(device => {
-      room['devices'].push(device);
-    });
-    state.rooms.push(room);
-    localStorage.setItem('rooms', JSON.stringify(state.rooms));
   },
 };
 

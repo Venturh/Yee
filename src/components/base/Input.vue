@@ -1,11 +1,6 @@
 <template>
   <div class="wrapper">
-    <IconButton
-      v-show="showIcon"
-      icon="edit"
-      size="2em"
-      @action="disabled = !disabled"
-    />
+    <IconButton v-show="showIcon" icon="edit" size="2em" @action="disabled = !disabled" />
     <input
       class="name-input"
       :class="{ 'name-input-active': disabled === false }"
@@ -37,7 +32,7 @@ export default {
   methods: {
     onEnter() {
       this.disabled = true;
-      this.$emit('action', this.input);
+      this.$emit('onEnter', this.input);
     },
   },
   watch: {

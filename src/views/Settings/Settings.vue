@@ -13,6 +13,20 @@
         :bulb="item"
         :name="item.name"
         :power="item.power"
+        type="bulb"
+      />
+    </div>
+    <div class="rooms">
+      <h3>Rooms</h3>
+      <YeeItem
+        v-for="(item, index) in rooms"
+        :key="index"
+        @changeName="change"
+        @removeItem="remove"
+        :bulb="item"
+        :name="item.name"
+        :power="item.power"
+        type="room"
       />
     </div>
   </section>
@@ -40,11 +54,27 @@ export default {
       loading: state => state.loading,
       discovering: state => state.discovering,
     }),
+    ...mapState('rooms', {
+      rooms: state => state.rooms,
+    }),
   },
   methods: {
     ...mapActions('yeelight', ['discovery', 'setName']),
+    ...mapActions('rooms', ['setRoomName', 'removeRoom']),
     change(props) {
-      this.setName({ bulb: props.bulb, name: props.name });
+      if (props.type === 'bulb') {
+        this.setName({ bulb: props.bulb, name: props.newName });
+      } else if (props.type === 'room') {
+        this.setRoomName({ oldName: props.oldName, newName: props.newName });
+      }
+    },
+    remove(props) {
+      console.log('remove -> type', props.type);
+      if (props.type === 'bulb') {
+        console.log('bulb');
+      } else if (props.type === 'room') {
+        this.removeRoom(props.name);
+      }
     },
   },
   created() {
@@ -54,6 +84,4 @@ export default {
 </script>
 
 <style>
-.wrapper {
-}
 </style>

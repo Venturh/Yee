@@ -50,12 +50,12 @@
 
 [fontSize='medium'] {
   --fontSize: 22px;
-  --mediumFontSize: 14px;
+  --mediumFontSize: 18px;
 }
 
 [fontSize='small'] {
-  --fontSize: 15px;
-  --mediumFontSize: 10px;
+  --fontSize: 18px;
+  --mediumFontSize: 16px;
 }
 
 body,
@@ -70,9 +70,6 @@ html {
 
   @include md {
     font-size: var(--mediumFontSize);
-  }
-  @include sm {
-    font-size: 8px;
   }
 }
 

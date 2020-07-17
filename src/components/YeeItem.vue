@@ -1,6 +1,7 @@
 <template>
   <div class="item">
-    <Input @action="changeName" :placeholder="name" />
+    <Input @onEnter="changeName" :placeholder="name" />
+    <button @click="remove">DELETE</button>
   </div>
 </template>
 
@@ -14,10 +15,19 @@ export default {
     bulb: Object,
     name: String,
     power: Boolean,
+    type: String,
   },
   methods: {
     changeName(newName) {
-      this.$emit('changeName', { bulb: this.bulb, name: newName });
+      this.$emit('changeName', {
+        type: this.type,
+        bulb: this.bulb,
+        newName: newName,
+        oldName: this.name,
+      });
+    },
+    remove() {
+      this.$emit('removeItem', { type: this.type, name: this.name });
     },
   },
 };

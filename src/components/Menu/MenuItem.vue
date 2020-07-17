@@ -38,7 +38,7 @@ export default {
 }
 .icon {
   fill: var(--primary);
-  height: 1.65em;
+  height: 1.5em;
 }
 span {
   color: var(--itemContrast);

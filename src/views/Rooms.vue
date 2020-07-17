@@ -14,11 +14,7 @@
     </div>
     <div class="overlay">
       <transition name="toggle">
-        <CardOverlay
-          v-if="showOverlay"
-          @toggle="toggleCardOverlay"
-          v-bind="selected"
-        />
+        <CardOverlay v-if="showOverlay" @toggle="toggleCardOverlay" v-bind="selected" />
       </transition>
     </div>
     <div class="add-room-overlay">
@@ -47,12 +43,14 @@ export default {
   components: { Card, AddCard, CardOverlay, AddOverlay },
   computed: {
     ...mapState('yeelight', {
-      rooms: state => state.rooms,
       devices: state => state.devices,
+    }),
+    ...mapState('rooms', {
+      rooms: state => state.rooms,
     }),
   },
   methods: {
-    ...mapActions('yeelight', ['addRoom']),
+    ...mapActions('rooms', ['addRoom']),
     toggleCardOverlay(item) {
       this.selected = item;
       this.showOverlay = !this.showOverlay;
