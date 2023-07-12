@@ -38,7 +38,7 @@
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.2",
-    "vue-cli-plugin-electron-builder": "^1.4.6",
+    "vue-cli-plugin-electron-builder": "^2.1.1",
     "vue-svg-loader": "^0.16.0",
     "vue-template-compiler": "^2.6.11"
   }
